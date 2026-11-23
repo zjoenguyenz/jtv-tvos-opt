@@ -1,0 +1,133 @@
+{
+ "version": 1,
+ "plugins": [
+  {
+   "id": "missav",
+   "name": "MissAV",
+   "version": "1.1.7",
+   "scriptUrl": "https://raw.githubusercontent.com/zjoenguyenz/jtv-source/main/plugins/mod01.js",
+   "iconUrl": "https://missav.media/favicon.ico",
+   "adult": true,
+   "baseUrl": "https://missav.media"
+  },
+  {
+   "id": "123av",
+   "name": "123AV",
+   "version": "1.0.8",
+   "scriptUrl": "https://raw.githubusercontent.com/zjoenguyenz/jtv-source/main/plugins/mod02.js",
+   "iconUrl": "https://raw.githubusercontent.com/zjoenguyenz/jtv-source/main/icons/mod02.ico",
+   "adult": true,
+   "baseUrl": "https://123av.com",
+   "relayBase": "http://192.168.68.59:8797/r/727da8975ab9e3c1"
+  },
+  {
+   "id": "avdbapi",
+   "name": "AVDB JAV",
+   "version": "1.0.6",
+   "scriptUrl": "https://raw.githubusercontent.com/zjoenguyenz/jtv-source/main/plugins/mod03.js",
+   "iconUrl": "https://avdbapi.com/favicon.ico",
+   "adult": true,
+   "baseUrl": "https://avdbapi.com/api.php/provide/vod"
+  },
+  {
+   "id": "sextop1",
+   "name": "Sextop1",
+   "version": "2.0.4",
+   "scriptUrl": "https://raw.githubusercontent.com/zjoenguyenz/jtv-source/main/plugins/mod04.js",
+   "iconUrl": "https://sextop1.farm/favicon.ico",
+   "adult": true,
+   "baseUrl": "https://sextop1.farm"
+  },
+  {
+   "id": "topxx",
+   "name": "TopXX",
+   "version": "1.0.3",
+   "scriptUrl": "https://raw.githubusercontent.com/zjoenguyenz/jtv-source/main/plugins/mod05.js",
+   "iconUrl": "https://topxx.vip/assets/images/header/logo.png",
+   "adult": true,
+   "baseUrl": "https://topxx.vip"
+  },
+  {
+   "id": "javhd",
+   "name": "JavHD",
+   "version": "1.0.7",
+   "scriptUrl": "https://raw.githubusercontent.com/zjoenguyenz/jtv-source/main/plugins/mod06.js",
+   "iconUrl": "https://raw.githubusercontent.com/zjoenguyenz/jtv-source/main/icons/mod06.ico",
+   "adult": true,
+   "baseUrl": "https://javhdz.today"
+  },
+  {
+   "id": "vlxx",
+   "name": "VLXX",
+   "version": "1.0.7",
+   "scriptUrl": "https://raw.githubusercontent.com/zjoenguyenz/jtv-source/main/plugins/mod07.js",
+   "iconUrl": "https://vlxx.net/favicon.ico",
+   "adult": true,
+   "baseUrl": "https://vlxx.net"
+  },
+  {
+   "id": "njav",
+   "name": "NJAV",
+   "version": "1.0.8",
+   "scriptUrl": "https://raw.githubusercontent.com/zjoenguyenz/jtv-source/main/plugins/mod08.js",
+   "iconUrl": "https://www.njav.com/favicon.ico",
+   "adult": true,
+   "baseUrl": "https://www.njav.com"
+  },
+  {
+   "id": "sayhentai",
+   "name": "SayHentai",
+   "version": "3.2.0",
+   "scriptUrl": "https://raw.githubusercontent.com/zjoenguyenz/jtv-source/main/plugins/mod09.js",
+   "iconUrl": "https://sayhentai.cx/favicon.ico",
+   "adult": true,
+   "baseUrl": "https://sayhentai.cx"
+  },
+  {
+   "id": "misskon",
+   "name": "MissKon",
+   "version": "1.0.1",
+   "scriptUrl": "https://raw.githubusercontent.com/zjoenguyenz/jtv-source/main/plugins/mod10.js",
+   "iconUrl": "https://misskon.com/favicon.ico",
+   "adult": true,
+   "baseUrl": "https://misskon.com"
+  },
+  {
+   "id": "torrenthub",
+   "name": "Torrent 18+",
+   "version": "1.0.7",
+   "scriptUrl": "https://raw.githubusercontent.com/zjoenguyenz/jtv-source/main/plugins/mod14.js",
+   "iconUrl": "https://raw.githubusercontent.com/zjoenguyenz/jtv-source/main/icons/mod14.png",
+   "adult": true,
+   "baseUrl": "https://addon.debrid.in"
+  },
+  {
+   "id": "hentaihub",
+   "name": "Hentai Hub",
+   "version": "1.0.7",
+   "maxChainParses": 5,
+   "scriptUrl": "https://raw.githubusercontent.com/zjoenguyenz/jtv-source/main/plugins/mod15.js",
+   "iconUrl": "https://hstream.moe/images/cropped-HS-1-270x270.webp",
+   "adult": true,
+   "baseUrl": "https://hstream.moe"
+  },
+  {
+   "id": "javguru",
+   "name": "JavGuru",
+   "version": "1.0.0",
+   "scriptUrl": "https://raw.githubusercontent.com/zjoenguyenz/jtv-source/main/plugins/mod16.js",
+   "iconUrl": "https://jav.guru/favicon.ico",
+   "adult": true,
+   "baseUrl": "https://jav.guru"
+  },
+  {
+   "id": "javsnap",
+   "name": "JavSnap",
+   "version": "1.0.0",
+   "scriptUrl": "https://raw.githubusercontent.com/zjoenguyenz/jtv-source/main/plugins/mod17.js",
+   "iconUrl": "https://javsnap.com/assets/client/icon/favicon.ico",
+   "adult": true,
+   "baseUrl": "https://javsnap.com"
+  }
+ ]
+}
