@@ -8,13 +8,14 @@ name: Build JTVTV IPA
 
 on:
   workflow_dispatch:
+  pull_request:
 
 permissions:
   contents: read
 
 jobs:
   build-jtvtv:
-    runs-on: macos-latest
+    runs-on: xcode-27
     steps:
       - name: Check out source
         uses: actions/checkout@v4
@@ -27,10 +28,6 @@ jobs:
           echo "name=${NAME}" >> "$GITHUB_OUTPUT"
           echo "Artifact / IPA name: ${NAME}"
 
-      - name: Select latest stable Xcode
-        uses: maxim-lobanov/setup-xcode@v1
-        with:
-          xcode-version: '26.x'
 
       - name: Show toolchain
         run: |
