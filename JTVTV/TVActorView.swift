@@ -770,7 +770,10 @@ struct TVActorView: View {
                                   avatarBox = _mergedAvatarUrl, settledBox = _mergeSettled,
                                   fullySettledBox = _mergeFullySettled,
                                   failedBox = _originFailed] in
-            guard let coordinator else { return }
+            guard let coordinator,
+                  let rowsBox, let contributorsBox, let avatarBox,
+                  let settledBox, let fullySettledBox, let failedBox
+            else { return }
             rowsBox.wrappedValue = coordinator.rows
             contributorsBox.wrappedValue = coordinator.contributors
             avatarBox.wrappedValue = coordinator.avatarUrl
