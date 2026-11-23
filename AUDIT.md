@@ -77,7 +77,7 @@ init() {
 ```
 Both `@StateObject`s and their observation stay exactly as they are today.
 
-**Risk.** Low. Same objects and same observation; only the discarded duplicates disappear. Behaviour change: NONE.
+**Risk.** Low. Same objects and same observation; only the discarded duplicates disappear. Behaviour change: NONE except one bounded delta (disclosed by the author in PR 1, ACCEPTED AND RECORDED by the leader 2026-11-23): baseline throwaway `PluginManager` constructions also re-seeded bundled plugin scripts after a Caches purge at the next `PinSession` publish; the fixed code seeds only at live-manager construction. Self-healing in PIN builds (next unlock); in no-PIN builds a script purged while backgrounded waits for the next successful sync (the sync fast path requires `hasScript`). Accepted because the discarded instances' unsynchronised writes were themselves part of the A1 hazard.
 
 **Verify.**
 - **Before/after:** a temporary measurement-build counter or os_signpost in `PluginManager.init`, with a scripted session (launch, switch all 5 tabs, open a detail, play 3 min). Expect the count to drop from N≈tabs+appears+3 to 1.
@@ -408,7 +408,7 @@ Exposure is limited: playlist names are 64-bit content hashes and the bodies are
 
 | PR | Closes | Behaviour change | Sync | Measurement to attach |
 |----|--------|------------------|------|------------------------|
-| 1 | A1 + A2(a): root store box | NONE | shell only | `PluginManager.init` count; main-thread profile during playback |
+| 1 | A1 + A2(a): root store box | NONE except the bounded seeding delta recorded at A1 (leader-accepted 2026-11-23) | shell only | `PluginManager.init` count; main-thread profile during playback |
 | 2 | A3: manga planner off-main | NONE (state ordering argued in PR) | shell only | Hangs on a 30-strip chapter; plan-array parity |
 | 3 | A4: single decode per fetch | NONE (edge noted) | SYNC-BREAKING | decode count; cold rail time |
 | 4 | A5: DiagLog cached secrets + persistent handle + ring | NONE (byte-identical scrub proven) | SYNC-BREAKING | 10k-line benchmark; scrub parity |
