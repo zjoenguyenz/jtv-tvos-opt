@@ -1,1 +1,23 @@
-ewogICJhc3NldHMiIDogWwogICAgewogICAgICAiZmlsZW5hbWUiIDogIkFwcEljb24uaW1hZ2VzdGFjayIsCiAgICAgICJpZGlvbSIgOiAidHYiLAogICAgICAicm9sZSIgOiAicHJpbWFyeS1hcHAtaWNvbiIsCiAgICAgICJzaXplIiA6ICI0MDB4MjQwIgogICAgfSwKICAgIHsKICAgICAgImZpbGVuYW1lIiA6ICJBcHBJY29uU3RvcmUuaW1hZ2VzdGFjayIsCiAgICAgICJpZGlvbSIgOiAidHYiLAogICAgICAicm9sZSIgOiAicHJpbWFyeS1hcHAtaWNvbiIsCiAgICAgICJzaXplIiA6ICIxMjgweDc2OCIKICAgIH0KICBdLAogICJpbmZvIiA6IHsKICAgICJhdXRob3IiIDogInhjb2RlIiwKICAgICJ2ZXJzaW9uIiA6IDEKICB9LAogICJwcm9wZXJ0aWVzIiA6IHsKICAgICJwcmUtcmVuZGVyZWQiIDogdHJ1ZQogIH0KfQo=
+{
+  "assets" : [
+    {
+      "filename" : "AppIcon.imagestack",
+      "idiom" : "tv",
+      "role" : "primary-app-icon",
+      "size" : "400x240"
+    },
+    {
+      "filename" : "AppIconStore.imagestack",
+      "idiom" : "tv",
+      "role" : "primary-app-icon",
+      "size" : "1280x768"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  },
+  "properties" : {
+    "pre-rendered" : true
+  }
+}

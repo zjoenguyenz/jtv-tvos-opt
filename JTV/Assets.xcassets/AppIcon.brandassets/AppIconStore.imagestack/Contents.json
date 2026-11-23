@@ -1,1 +1,14 @@
-ewogICJpbmZvIjogewogICAgImF1dGhvciI6ICJ4Y29kZSIsCiAgICAidmVyc2lvbiI6IDEKICB9LAogICJsYXllcnMiOiBbCiAgICB7CiAgICAgICJmaWxlbmFtZSI6ICJGcm9udC5pbWFnZXN0YWNrbGF5ZXIiCiAgICB9LAogICAgewogICAgICAiZmlsZW5hbWUiOiAiQmFjay5pbWFnZXN0YWNrbGF5ZXIiCiAgICB9CiAgXQp9
+{
+  "info": {
+    "author": "xcode",
+    "version": 1
+  },
+  "layers": [
+    {
+      "filename": "Front.imagestacklayer"
+    },
+    {
+      "filename": "Back.imagestacklayer"
+    }
+  ]
+}

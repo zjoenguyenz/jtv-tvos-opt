@@ -1,1 +1,12 @@
-ewogICJpbWFnZXMiOiBbCiAgICB7CiAgICAgICJmaWxlbmFtZSI6ICJmcm9udC5wbmciLAogICAgICAiaWRpb20iOiAidHYiCiAgICB9CiAgXSwKICAiaW5mbyI6IHsKICAgICJhdXRob3IiOiAieGNvZGUiLAogICAgInZlcnNpb24iOiAxCiAgfQp9
+{
+  "images": [
+    {
+      "filename": "front.png",
+      "idiom": "tv"
+    }
+  ],
+  "info": {
+    "author": "xcode",
+    "version": 1
+  }
+}

@@ -1,1 +1,32 @@
-Ly8vIEJ1bmRsZWQgY3JlZGVudGlhbHMgZm9yIHRoZSB0dk9TIGJ1aWxkLgovLy8KLy8vIHR2T1MgaGFzIG5vIHByYWN0aWNhbCB0ZXh0IGVudHJ5IGZvciBsb25nIHRva2Vucy9VUkxzLCBhbmQgYQovLy8gU2lnbnVsb3VzIGRlbGV0ZS1hbmQtcmVpbnN0YWxsIHdpcGVzIHRoZSBhcHAgc2FuZGJveCwgc28gdGhlCi8vLyBvd25lcidzIHJ1bGluZyBpcyB0aGF0IGNyZWRlbnRpYWxzIGFyZSBidW5kbGVkIElOVE8gdGhlIGJ1aWxkLgovLy8KLy8vIFdoYXQgbGl2ZXMgaGVyZSB2cy4gZWxzZXdoZXJlICh0d28gZmlsZXMsIHR3byByZWFkZXJzKToKLy8vIGBEZWJyaWRUb2tlbnNgIOKAlCB0aGUgZnVuY3Rpb25hbCBkZWJyaWQgcmVhZGVyIOKAlCBkb2VzIE5PVAovLy8gcmVhZCB0aGlzIGZpbGU7IGl0IGZhbGxzIGJhY2sgdG8gYERlYnJpZFNlY3JldHNgLCB3aGljaCB0aGUKLy8vIENJIHdvcmtmbG93IHJlZ2VuZXJhdGVzIGZyb20gdGhlIHNhbWUgdGhyZWUgcmVwbyBzZWNyZXRzCi8vLyAoUkRfVE9LRU4gLyBUT1JCT1hfVE9LRU4gLyBQUkVNSVVNSVpFX1RPS0VOKSB3aXRoIHRoZSBzYW1lCi8vLyBiYXNlNjQgbWVjaGFuaXNtIGFzIHRoaXMgZmlsZSwgc28gdGhlIGJ1bmRsZWQgdmFsdWVzIHJlYWNoCi8vLyBEZWJyaWRUb2tlbnMgdGhyb3VnaCBEZWJyaWRTZWNyZXRzLiBUaGlzIGZpbGUKLy8vIChgQnVuZGxlZFNlY3JldHNgKSBjYXJyaWVzIGBtZlVSTGAgKHRoZSBNZWRpYUZ1c2lvbiBmYWxsYmFjawovLy8gcmVhZCBieSBNb3ZpZVNlcnZpY2UuTWVkaWFGdXNpb24uYmFzZVVSTCksIHRoZSBQSU4gaGFzaCArCi8vLyBgcGluQ29uZmlndXJlZGAgKHJlYWQgYnkgdGhlIFBJTiBnYXRlKSwgYW5kIHRoZSBkZWJyaWQgdG9rZW4KLy8vIHZhbHVlcyB0aGUgU2V0dGluZ3Mgc3RhdHVzIHJvd3MgcmVhZC4KLy8vCi8vLyBUaGUgY29weSBjb21taXR0ZWQgaGVyZSBjYXJyaWVzIEVNUFRZIGRlZmF1bHRzIG9uIHB1cnBvc2Ug4oCUCi8vLyBubyBjcmVkZW50aWFsIGV2ZXIgbGl2ZXMgaW4gc291cmNlIGNvbnRyb2wuIFRoZSBDSSB3b3JrZmxvdwovLy8gcmVnZW5lcmF0ZXMgdGhpcyBmaWxlIGZyb20gYmFzZTY0LWVuY29kZWQgc2VjcmV0cyBiZWZvcmUKLy8vIGNvbXBpbGluZzsgd2hlbiBpdCBkb2VzIG5vdCwgZXZlcnkgY29uc3VtZXIgZmFsbHMgYmFjayB0byBhbgovLy8gZW1wdHkvdW5jb25maWd1cmVkIHN0YXRlIGV4YWN0bHkgYXMgdGhlIGlPUyBidWlsZCBkb2VzIHdpdGgKLy8vIGFuIGVtcHR5IERlYnJpZFNlY3JldHMuCmVudW0gQnVuZGxlZFNlY3JldHMgewogICAgc3RhdGljIGxldCByZFRva2VuID0gIiIKICAgIHN0YXRpYyBsZXQgdG9yYm94VG9rZW4gPSAiIgogICAgc3RhdGljIGxldCBwcmVtaXVtaXplVG9rZW4gPSAiIgogICAgc3RhdGljIGxldCBtZlVSTCA9ICIiCiAgICBzdGF0aWMgbGV0IHBpbkhhc2ggPSAiIgogICAgc3RhdGljIGxldCBwaW5Db25maWd1cmVkID0gZmFsc2UKfQo=
+/// Bundled credentials for the tvOS build.
+///
+/// tvOS has no practical text entry for long tokens/URLs, and a
+/// Signulous delete-and-reinstall wipes the app sandbox, so the
+/// owner's ruling is that credentials are bundled INTO the build.
+///
+/// What lives here vs. elsewhere (two files, two readers):
+/// `DebridTokens` — the functional debrid reader — does NOT
+/// read this file; it falls back to `DebridSecrets`, which the
+/// CI workflow regenerates from the same three repo secrets
+/// (RD_TOKEN / TORBOX_TOKEN / PREMIUMIZE_TOKEN) with the same
+/// base64 mechanism as this file, so the bundled values reach
+/// DebridTokens through DebridSecrets. This file
+/// (`BundledSecrets`) carries `mfURL` (the MediaFusion fallback
+/// read by MovieService.MediaFusion.baseURL), the PIN hash +
+/// `pinConfigured` (read by the PIN gate), and the debrid token
+/// values the Settings status rows read.
+///
+/// The copy committed here carries EMPTY defaults on purpose —
+/// no credential ever lives in source control. The CI workflow
+/// regenerates this file from base64-encoded secrets before
+/// compiling; when it does not, every consumer falls back to an
+/// empty/unconfigured state exactly as the iOS build does with
+/// an empty DebridSecrets.
+enum BundledSecrets {
+    static let rdToken = ""
+    static let torboxToken = ""
+    static let premiumizeToken = ""
+    static let mfURL = ""
+    static let pinHash = ""
+    static let pinConfigured = false
+}

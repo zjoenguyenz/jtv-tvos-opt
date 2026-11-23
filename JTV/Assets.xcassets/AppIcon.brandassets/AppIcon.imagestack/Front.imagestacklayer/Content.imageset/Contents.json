@@ -1,1 +1,18 @@
-ewogICJpbWFnZXMiOiBbCiAgICB7CiAgICAgICJmaWxlbmFtZSI6ICJmcm9udC5wbmciLAogICAgICAiaWRpb20iOiAidHYiLAogICAgICAic2NhbGUiOiAiMXgiCiAgICB9LAogICAgewogICAgICAiZmlsZW5hbWUiOiAiZnJvbnRAMngucG5nIiwKICAgICAgImlkaW9tIjogInR2IiwKICAgICAgInNjYWxlIjogIjJ4IgogICAgfQogIF0sCiAgImluZm8iOiB7CiAgICAiYXV0aG9yIjogInhjb2RlIiwKICAgICJ2ZXJzaW9uIjogMQogIH0KfQ==
+{
+  "images": [
+    {
+      "filename": "front.png",
+      "idiom": "tv",
+      "scale": "1x"
+    },
+    {
+      "filename": "front@2x.png",
+      "idiom": "tv",
+      "scale": "2x"
+    }
+  ],
+  "info": {
+    "author": "xcode",
+    "version": 1
+  }
+}

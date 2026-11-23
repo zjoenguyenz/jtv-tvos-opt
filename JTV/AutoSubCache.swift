@@ -1,1 +1,233 @@
-aW1wb3J0IEZvdW5kYXRpb24KaW1wb3J0IENyeXB0b0tpdAoKLy8gTUFSSzogLSBBdXRvU3ViIGdlbmVyYXRlZC10cmFjayBjYWNoZSAoc3BlYyDCpzMuNzsgaXRlbSBTLTQpCi8vCi8vIENvbnRlbnQta2V5ZWQgc3RvcmUgZm9yIGZpbmlzaGVkIFZpZXRuYW1lc2UgY3VlIGxpc3RzOgovLyAgIOKAoiBLZXk6IFNIQS0yNTYgaGV4IG9mIHRoZSBTT1VSQ0Ugc3VidGl0bGUgZmlsZSdzIGJ5dGVzIChjb250ZW50Ci8vICAgICBrZXlpbmcg4oCUIHN0cmVhbS9zdWJ0aXRsZSBVUkxzIGVsc2V3aGVyZSBpbiB0aGlzIGFwcCByb3RhdGUsIHNvCi8vICAgICBhIFVSTCBrZXkgd291bGQgc2lsZW50bHkgZGVmZWF0IHRoZSBjYWNoZTsgwqczLjcpLgovLyAgIOKAoiBMb2NhdGlvbjogQ2FjaGVzL2F1dG9zdWIvIOKAlCB0aGUgYXBwJ3MgY29udmVudGlvbiBmb3IgZGVyaXZlZCwKLy8gICAgIHJlLWNyZWF0YWJsZSBkYXRhIChDYWNoZS5zd2lmdCdzIGp0di1pbWFnZXMsIEhMU1Byb3h5J3MKLy8gICAgIGhscy1sb2NhbCk7IGlPUyBtYXkgcHVyZ2UgaXQgdW5kZXIgc3RvcmFnZSBwcmVzc3VyZSwgd2hpY2ggaXMKLy8gICAgIHNhZmUgaGVyZSAod29yc3QgY2FzZTogcmUtdHJhbnNsYXRlKS4KLy8gICDigKIgQXJ0ZWZhY3QgcGVyIGtleTogPGtleT4udnR0ICh0aGUgwqczLjMgc3RlcC02IFdlYlZUVCkgcGx1cyBhCi8vICAgICA8a2V5Pi5qc29uIHNpZGVjYXIgKHNvdXJjZSBsYW5ndWFnZSwgZGVjbGFyZWQtb3ItZGV0ZWN0ZWQsCi8vICAgICBjdWUgY291bnQsIGNoYXJhY3RlciBjb3VudCwgY3JlYXRlZCBkYXRlLCBlbmdpbmUsIGFwcAovLyAgICAgdmVyc2lvbikuCi8vICAg4oCiIENhcDogNTAgTUIsIExSVSBieSBtb2RpZmljYXRpb24gZGF0ZSDigJQgd2l0aCBvbmUgZGVsaWJlcmF0ZQovLyAgICAgcmVmaW5lbWVudCBvdmVyIGEgbGl0ZXJhbCBwZXItZmlsZSBwcnVuZTogZXZpY3Rpb24gcmVtb3ZlcyBhCi8vICAgICBrZXkncyAudnR0IGFuZCAuanNvbiBUT0dFVEhFUiwgc28gdGhlIGRpcmVjdG9yeSBuZXZlciBrZWVwcwovLyAgICAgYW4gb3JwaGFuIHNpZGVjYXIgd2hvc2UgY3VlIGZpbGUgaXMgZ29uZSAob3IgdmljZSB2ZXJzYSkuCi8vICAgICBSZWNlbmN5IGlzIHRoZSBuZXdlc3QgbW9kaWZpY2F0aW9uIGRhdGUgYW1vbmcgdGhlIGtleSdzCi8vICAgICBmaWxlcywgYW5kIGEgY2FjaGUgaGl0IHJlZnJlc2hlcyBpdC4KLy8KLy8gQ29uY3VycmVuY3kgKEZJWCAyLCBSMS1jb25jdXJyZW5jeSBGLTIvRi0zKTogdGhpcyB0eXBlIGlzIGFuCi8vIEFDVE9SLiBFdmVyeSBwaWVjZSBvZiBmaWxlIEkvTyDigJQgZGlyZWN0b3J5IGNyZWF0aW9uLCBsb2FkLCBzdG9yZSwKLy8gcHJ1bmUg4oCUIHJ1bnMgaW5zaWRlIGFjdG9yIGlzb2xhdGlvbjsgdGhlcmUgaXMgbm8gc2VyaWFsIHF1ZXVlCi8vIGFuZCBubyBgQHVuY2hlY2tlZCBTZW5kYWJsZWAgYW55d2hlcmUuIFRoZSBwcmV2aW91cyBzaGFwZSByYW4KLy8gYHF1ZXVlLnN5bmNgIGJvZGllcyB0aGF0IHBhcmtlZCB0aGUgQE1haW5BY3RvciBjYWxsZXIgZm9yIHRoZQovLyBmdWxsIHJlYWQvcGFyc2Uvd3JpdGUsIGFuZCBpdHMgcHJ1bmUgcmFuIGluIGRldGFjaGVkIHRhc2tzCi8vIE9VVFNJREUgdGhlIHF1ZXVlLCByYWNpbmcgbG9hZHMgYW5kIHN0b3Jlcy4gQm90aCBhcmUgZ29uZToKLy8gY2FsbGVycyBgYXdhaXRgIHRoZSBsb2FkL3N0b3JlLCBhbmQgcHJ1bmUgaXMgYW4gYWN0b3IgbWV0aG9kCi8vIGludm9rZWQgdmlhIGBUYXNrIHsgYXdhaXQg4oCmIH1gIGZyb20gaW5pdCBhbmQgYWZ0ZXIgc3RvcmVzLCBzbyBhCi8vIHBydW5lIGNhbiBuZXZlciBpbnRlcmxlYXZlIHdpdGggYSBsb2FkIG9yIHN0b3JlIG1pZC1mbGlnaHQuCgpzdHJ1Y3QgQXV0b1N1YkNhY2hlU2lkZWNhcjogQ29kYWJsZSwgU2VuZGFibGUsIEVxdWF0YWJsZSB7CiAgICAvLy8gU291cmNlIGxhbmd1YWdlIHJhdyB2YWx1ZTogImVuIiAvICJ6aC1IYW5zIiAvICJ6aC1IYW50IiAvICJqYSIuCiAgICB2YXIgc291cmNlTGFuZ3VhZ2U6IFN0cmluZwogICAgLy8vIFRydWUgd2hlbiDCpzMuMi4xIGlkZW50aWZpY2F0aW9uIGNhbWUgZnJvbSB0aGUgZGVjbGFyYXRpb24sCiAgICAvLy8gZmFsc2Ugd2hlbiBpdCBjYW1lIGZyb20gZGV0ZWN0aW9uLgogICAgdmFyIGlkZW50aWZpZWRWaWFEZWNsYXJlZDogQm9vbAogICAgdmFyIGN1ZUNvdW50OiBJbnQKICAgIC8vLyBDaGFyYWN0ZXIgY291bnQgb2YgdGhlIFNPVVJDRSBjdWUgdGV4dCAodGhlIHRyYW5zbGF0aW9uCiAgICAvLy8gdm9sdW1lIG1lYXN1cmUsIGNmLiBQYXJ0IDUgb2YgdGhlIHNwZWMpLgogICAgdmFyIGNoYXJhY3RlckNvdW50OiBJbnQKICAgIHZhciBjcmVhdGVkQXQ6IERhdGUKICAgIC8vLyAiYXBwbGUtdHJhbnNsYXRpb24vPHBhaXJMYWJlbD4iLCBlLmcuICJhcHBsZS10cmFuc2xhdGlvbi9lbi12aSIuCiAgICB2YXIgZW5naW5lOiBTdHJpbmcKICAgIC8vLyAiPHNob3J0IHZlcnNpb24+ICg8YnVpbGQ+KSIgZnJvbSB0aGUgYXBwIGJ1bmRsZS4KICAgIHZhciBhcHBWZXJzaW9uOiBTdHJpbmcKfQoKYWN0b3IgQXV0b1N1YkNhY2hlIHsKICAgIHN0YXRpYyBsZXQgc2hhcmVkID0gQXV0b1N1YkNhY2hlKCkKCiAgICBwcml2YXRlIGxldCBkaXNrRGlyOiBVUkwKICAgIHByaXZhdGUgbGV0IGRpc2tDYXAgPSA1MCAqIDEwMjQgKiAxMDI0CgogICAgaW5pdCgpIHsKICAgICAgICBsZXQgY2FjaGVzID0gRmlsZU1hbmFnZXIuZGVmYXVsdC51cmxzKGZvcjogLmNhY2hlc0RpcmVjdG9yeSwgaW46IC51c2VyRG9tYWluTWFzaylbMF0KICAgICAgICBkaXNrRGlyID0gY2FjaGVzLmFwcGVuZGluZ1BhdGhDb21wb25lbnQoImF1dG9zdWIiLCBpc0RpcmVjdG9yeTogdHJ1ZSkKICAgICAgICAvLyBUaGUgcHJ1bmUgKGFuZCB0aGUgZGlyZWN0b3J5IGNyZWF0aW9uIGluc2lkZSBpdCkgcnVucyBhcwogICAgICAgIC8vIGFuIGFjdG9yIGpvYiDigJQgbm8gZmlsZSBJL08gaGFwcGVucyBpbiB0aGlzIGluaXRpYWxpc2VyCiAgICAgICAgLy8gaXRzZWxmLCB3aGljaCBpcyBub25pc29sYXRlZC4KICAgICAgICBUYXNrIHsgYXdhaXQgc2VsZi5wcnVuZSgpIH0KICAgIH0KCiAgICAvLyBNQVJLOiBLZXkKCiAgICAvLy8gVGhlIMKnMy43IGNhY2hlIGtleSBmb3IgYSBzb3VyY2Ugc3VidGl0bGUgZmlsZTogU0hBLTI1NiBoZXgKICAgIC8vLyBvZiBpdHMgYnl0ZXMgKHRoZSBzYW1lIENyeXB0b0tpdCBwcmltaXRpdmUgQ2FjaGUuc3dpZnQncwogICAgLy8vIGRpc2tVUkwgdXNlcywgdGhlcmUgb3ZlciBhIGtleSBzdHJpbmcpLiBQdXJlIGZ1bmN0aW9uIG9mIHRoZQogICAgLy8vIGJ5dGVzIOKAlCBhIHN0YXRpYyBtZW1iZXIsIGhlbmNlIG5vbmlzb2xhdGVkLCBzYWZlIHRvIGNhbGwKICAgIC8vLyBmcm9tIGFueSBjb250ZXh0IHdpdGhvdXQgYXdhaXRpbmcgdGhlIGFjdG9yLgogICAgc3RhdGljIGZ1bmMga2V5KGZvclNvdXJjZURhdGEgZGF0YTogRGF0YSkgLT4gU3RyaW5nIHsKICAgICAgICBTSEEyNTYuaGFzaChkYXRhOiBkYXRhKS5tYXAgeyBTdHJpbmcoZm9ybWF0OiAiJTAyeCIsICQwKSB9LmpvaW5lZCgpCiAgICB9CgogICAgcHJpdmF0ZSBmdW5jIHZ0dFVSTChmb3Iga2V5OiBTdHJpbmcpIC0+IFVSTCB7CiAgICAgICAgZGlza0Rpci5hcHBlbmRpbmdQYXRoQ29tcG9uZW50KGtleSArICIudnR0IikKICAgIH0KCiAgICBwcml2YXRlIGZ1bmMgc2lkZWNhclVSTChmb3Iga2V5OiBTdHJpbmcpIC0+IFVSTCB7CiAgICAgICAgZGlza0Rpci5hcHBlbmRpbmdQYXRoQ29tcG9uZW50KGtleSArICIuanNvbiIpCiAgICB9CgogICAgcHJpdmF0ZSBmdW5jIGVuc3VyZURpcmVjdG9yeSgpIHsKICAgICAgICB0cnk/IEZpbGVNYW5hZ2VyLmRlZmF1bHQuY3JlYXRlRGlyZWN0b3J5KGF0OiBkaXNrRGlyLCB3aXRoSW50ZXJtZWRpYXRlRGlyZWN0b3JpZXM6IHRydWUpCiAgICB9CgogICAgLy8gTUFSSzogTG9hZAoKICAgIC8vLyBSZXR1cm5zIHRoZSBjYWNoZWQgdHJhbnNsYXRpb24gZm9yIGBrZXlgLCBvciBuaWwgb24gYW55CiAgICAvLy8gbWlzcyDigJQgbWlzc2luZyBmaWxlcywgYW4gdW5wYXJzZWFibGUgYXJ0ZWZhY3QsIGEgYnJva2VuCiAgICAvLy8gc2lkZWNhciwgb3IgYSBWQUxJREFUSU9OIGZhaWx1cmUgYXJlIGFsbCBqdXN0IG1pc3NlcyAodGhlCiAgICAvLy8gY2FsbGVyIHJlLXRyYW5zbGF0ZXMpLgogICAgLy8vCiAgICAvLy8gRklYIChSMS1sb2dpYyBtNyk6IHZhbGlkYXRpb24gbGl2ZXMgSEVSRSBub3cuIFdoZW4gdGhlCiAgICAvLy8gY2FsbGVyIHN1cHBsaWVzIHRoZSBleHBlY3RlZCBjdWUgY291bnQgLyBzb3VyY2UgbGFuZ3VhZ2UsCiAgICAvLy8gYW4gZW50cnkgdGhhdCBkaXNhZ3JlZXMgaXMgYSBtaXNzIOKAlCBhbmQgYGF1dG9zdWIgY2FjaGUKICAgIC8vLyBoaXQ9MWAgaXMgbG9nZ2VkIE9OTFkgb24gdGhlIHBhdGggdGhhdCByZXR1cm5zIGEKICAgIC8vLyBzdWNjZXNzZnVsbHkgcGFyc2VkIEFORCB2YWxpZGF0ZWQgdmFsdWUgKGFmdGVyIHRoZSBwYXJzZSwKICAgIC8vLyBhZnRlciB0aGUgc2lkZWNhciBkZWNvZGUsIGFmdGVyIHZhbGlkYXRpb24pLCBuZXZlciBiZWZvcmUuCiAgICAvLy8gQSBoaXQgYWxzbyByZWZyZXNoZXMgdGhlIHBhaXIncyBtb2RpZmljYXRpb24gZGF0ZXMsIHdoaWNoCiAgICAvLy8gaXMgd2hhdCBtYWtlcyB0aGUgZXZpY3Rpb24gYmVsb3cgbGVhc3QtUkVDRU5UTFktdXNlZCByYXRoZXIKICAgIC8vLyB0aGFuIG9sZGVzdC1jcmVhdGVkLgogICAgZnVuYyBsb2FkVHJhbnNsYXRlZCgKICAgICAgICBrZXk6IFN0cmluZywKICAgICAgICBleHBlY3RlZEN1ZUNvdW50OiBJbnQ/ID0gbmlsLAogICAgICAgIGV4cGVjdGVkU291cmNlTGFuZ3VhZ2U6IFN0cmluZz8gPSBuaWwKICAgICkgLT4gKGN1ZXM6IFtBdXRvU3ViQ3VlXSwgc2lkZWNhcjogQXV0b1N1YkNhY2hlU2lkZWNhcik/IHsKICAgICAgICBlbnN1cmVEaXJlY3RvcnkoKQogICAgICAgIGxldCBmbSA9IEZpbGVNYW5hZ2VyLmRlZmF1bHQKICAgICAgICBndWFyZCBsZXQgdnR0RGF0YSA9IHRyeT8gRGF0YShjb250ZW50c09mOiB2dHRVUkwoZm9yOiBrZXkpKSwKICAgICAgICAgICAgICBsZXQgc2lkZWNhckRhdGEgPSB0cnk/IERhdGEoY29udGVudHNPZjogc2lkZWNhclVSTChmb3I6IGtleSkpLAogICAgICAgICAgICAgIGxldCBjdWVzID0gdHJ5PyBBdXRvU3ViU3VidGl0bGVzLnBhcnNlKHZ0dERhdGEpLAogICAgICAgICAgICAgIGxldCBzaWRlY2FyID0gdHJ5PyBTZWxmLnNpZGVjYXJEZWNvZGVyLmRlY29kZShBdXRvU3ViQ2FjaGVTaWRlY2FyLnNlbGYsIGZyb206IHNpZGVjYXJEYXRhKQogICAgICAgIGVsc2UgeyByZXR1cm4gbmlsIH0KICAgICAgICBpZiBsZXQgZXhwZWN0ZWRDdWVDb3VudCwgY3Vlcy5jb3VudCAhPSBleHBlY3RlZEN1ZUNvdW50IHsgcmV0dXJuIG5pbCB9CiAgICAgICAgaWYgbGV0IGV4cGVjdGVkU291cmNlTGFuZ3VhZ2UsIHNpZGVjYXIuc291cmNlTGFuZ3VhZ2UgIT0gZXhwZWN0ZWRTb3VyY2VMYW5ndWFnZSB7IHJldHVybiBuaWwgfQogICAgICAgIGxldCBub3cgPSBEYXRlKCkKICAgICAgICB0cnk/IGZtLnNldEF0dHJpYnV0ZXMoWy5tb2RpZmljYXRpb25EYXRlOiBub3ddLCBvZkl0ZW1BdFBhdGg6IHZ0dFVSTChmb3I6IGtleSkucGF0aCkKICAgICAgICB0cnk/IGZtLnNldEF0dHJpYnV0ZXMoWy5tb2RpZmljYXRpb25EYXRlOiBub3ddLCBvZkl0ZW1BdFBhdGg6IHNpZGVjYXJVUkwoZm9yOiBrZXkpLnBhdGgpCiAgICAgICAgRGlhZ0xvZy5sb2coImF1dG9zdWIiLCAiY2FjaGUgaGl0PTEgY3Vlcz1cKGN1ZXMuY291bnQpIikKICAgICAgICByZXR1cm4gKGN1ZXMsIHNpZGVjYXIpCiAgICB9CgogICAgLy8gTUFSSzogU3RvcmUKCiAgICAvLy8gV3JpdGVzIHRoZSBmaW5pc2hlZCB0cmFuc2xhdGlvbiBmb3IgYGtleWA6IHRoZSBXZWJWVFQKICAgIC8vLyBhcnRlZmFjdCAodmlhIEF1dG9TdWJTdWJ0aXRsZXMud2ViVlRUIOKAlCBhc3NlbWJsZWQgaGVyZSwKICAgIC8vLyBpbnNpZGUgdGhlIGFjdG9yLCBub3Qgb24gdGhlIGNhbGxlcidzIG1haW4gYWN0b3IpIGFuZCBpdHMKICAgIC8vLyBzaWRlY2FyLCBib3RoIGF0b21pY2FsbHksIHRoZW4gc2NoZWR1bGVzIGEgcHJ1bmUgYXMgYW4KICAgIC8vLyBhY3RvciBqb2IuIExvZ3MgYGF1dG9zdWIgY2FjaGUgc3RvcmVkIGJ5dGVzPTxuPmAgKMKnMy44KSwKICAgIC8vLyB3aGVyZSA8bj4gaXMgdGhlIC52dHQgYXJ0ZWZhY3QncyBieXRlIGNvdW50LgogICAgZnVuYyBzdG9yZVRyYW5zbGF0ZWQoCiAgICAgICAga2V5OiBTdHJpbmcsCiAgICAgICAgY3VlczogW0F1dG9TdWJDdWVdLAogICAgICAgIHNvdXJjZTogQXV0b1N1YlNvdXJjZUxhbmd1YWdlLAogICAgICAgIGlkZW50aWZpZWRWaWFEZWNsYXJlZDogQm9vbCwKICAgICAgICBzb3VyY2VDaGFyQ291bnQ6IEludAogICAgKSB7CiAgICAgICAgZW5zdXJlRGlyZWN0b3J5KCkKICAgICAgICBsZXQgdnR0ID0gQXV0b1N1YlN1YnRpdGxlcy53ZWJWVFQoZnJvbTogY3VlcykKICAgICAgICBsZXQgc2lkZWNhciA9IEF1dG9TdWJDYWNoZVNpZGVjYXIoCiAgICAgICAgICAgIHNvdXJjZUxhbmd1YWdlOiBzb3VyY2UucmF3VmFsdWUsCiAgICAgICAgICAgIGlkZW50aWZpZWRWaWFEZWNsYXJlZDogaWRlbnRpZmllZFZpYURlY2xhcmVkLAogICAgICAgICAgICBjdWVDb3VudDogY3Vlcy5jb3VudCwKICAgICAgICAgICAgY2hhcmFjdGVyQ291bnQ6IHNvdXJjZUNoYXJDb3VudCwKICAgICAgICAgICAgY3JlYXRlZEF0OiBEYXRlKCksCiAgICAgICAgICAgIGVuZ2luZTogImFwcGxlLXRyYW5zbGF0aW9uL1woc291cmNlLnBhaXJMYWJlbCkiLAogICAgICAgICAgICBhcHBWZXJzaW9uOiBTZWxmLmFwcFZlcnNpb24KICAgICAgICApCiAgICAgICAgZ3VhcmQgbGV0IHZ0dERhdGEgPSB2dHQuZGF0YSh1c2luZzogLnV0ZjgpLAogICAgICAgICAgICAgIGxldCBzaWRlY2FyRGF0YSA9IHRyeT8gU2VsZi5zaWRlY2FyRW5jb2Rlci5lbmNvZGUoc2lkZWNhcikKICAgICAgICBlbHNlIHsgcmV0dXJuIH0KICAgICAgICBkbyB7CiAgICAgICAgICAgIHRyeSB2dHREYXRhLndyaXRlKHRvOiB2dHRVUkwoZm9yOiBrZXkpLCBvcHRpb25zOiAuYXRvbWljKQogICAgICAgICAgICB0cnkgc2lkZWNhckRhdGEud3JpdGUodG86IHNpZGVjYXJVUkwoZm9yOiBrZXkpLCBvcHRpb25zOiAuYXRvbWljKQogICAgICAgIH0gY2F0Y2ggewogICAgICAgICAgICByZXR1cm4KICAgICAgICB9CiAgICAgICAgRGlhZ0xvZy5sb2coImF1dG9zdWIiLCAiY2FjaGUgc3RvcmVkIGJ5dGVzPVwodnR0RGF0YS5jb3VudCkiKQogICAgICAgIC8vIFBvc3Qtc3RvcmUgcHJ1bmUgYXMgYSBzZXBhcmF0ZSBhY3RvciBqb2IgKEZJWCAyKTogaXQgcnVucwogICAgICAgIC8vIGFmdGVyIHRoaXMgc3RvcmUgaGFzIGZ1bGx5IGNvbXBsZXRlZCwgaW5zaWRlIHRoZSBzYW1lCiAgICAgICAgLy8gaXNvbGF0aW9uLCBzbyBpdCBjYW4gbmV2ZXIgcmFjZSB0aGUgd3JpdGUgYWJvdmUuCiAgICAgICAgVGFzayB7IGF3YWl0IHNlbGYucHJ1bmUoKSB9CiAgICB9CgogICAgLy8gTUFSSzogUHJ1bmUgKExSVSwgYWN0b3ItaXNvbGF0ZWQpCgogICAgLy8vIEV2aWN0cyBsZWFzdC1yZWNlbnRseS11c2VkIGtleXMgdW50aWwgdGhlIGRpcmVjdG9yeSBpcyBhdCBvcgogICAgLy8vIHVuZGVyIHRoZSBjYXAuIEFjdG9yLWlzb2xhdGVkOiBpdCBjYW4gb25seSBydW4gYmV0d2VlbiBvdGhlcgogICAgLy8vIGFjdG9yIGpvYnMsIG5ldmVyIGNvbmN1cnJlbnRseSB3aXRoIGEgbG9hZCBvciBzdG9yZQogICAgLy8vIChSMS1jb25jdXJyZW5jeSBGLTMgLyBSMS1sb2dpYyBtNiDigJQgdGhlIG9sZCBkZXRhY2hlZC10YXNrCiAgICAvLy8gcHJ1bmUgY291bGQgZGVsZXRlIGEgcGFpciBtaWQtbG9hZCBvciBqdXN0IGFmdGVyIGEgc3RvcmUpLgogICAgcHJpdmF0ZSBmdW5jIHBydW5lKCkgewogICAgICAgIGVuc3VyZURpcmVjdG9yeSgpCiAgICAgICAgbGV0IGZtID0gRmlsZU1hbmFnZXIuZGVmYXVsdAogICAgICAgIGd1YXJkIGxldCBlbnRyaWVzID0gdHJ5PyBmbS5jb250ZW50c09mRGlyZWN0b3J5KAogICAgICAgICAgICBhdDogZGlza0RpciwgaW5jbHVkaW5nUHJvcGVydGllc0ZvcktleXM6IFsuZmlsZVNpemVLZXksIC5jb250ZW50TW9kaWZpY2F0aW9uRGF0ZUtleV0KICAgICAgICApIGVsc2UgeyByZXR1cm4gfQogICAgICAgIHZhciB0b3RhbCA9IDAKICAgICAgICAvLyBHcm91cCBmaWxlcyBieSBjYWNoZSBrZXkgKGZpbGVuYW1lIG1pbnVzIGV4dGVuc2lvbikgc28gYQogICAgICAgIC8vIGtleSdzIC52dHQgKyAuanNvbiBhcmUgZXZpY3RlZCB0b2dldGhlciAoc2VlIGhlYWRlciBub3RlKS4KICAgICAgICB2YXIgZ3JvdXBzOiBbU3RyaW5nOiAodXJsczogW1VSTF0sIHNpemU6IEludCwgbmV3ZXN0OiBEYXRlKV0gPSBbOl0KICAgICAgICBmb3IgZW50cnkgaW4gZW50cmllcyB7CiAgICAgICAgICAgIGxldCB2YWx1ZXMgPSB0cnk/IGVudHJ5LnJlc291cmNlVmFsdWVzKGZvcktleXM6IFsuZmlsZVNpemVLZXksIC5jb250ZW50TW9kaWZpY2F0aW9uRGF0ZUtleV0pCiAgICAgICAgICAgIGxldCBzaXplID0gdmFsdWVzPy5maWxlU2l6ZSA/PyAwCiAgICAgICAgICAgIHRvdGFsICs9IHNpemUKICAgICAgICAgICAgbGV0IGtleSA9IGVudHJ5LmRlbGV0aW5nUGF0aEV4dGVuc2lvbigpLmxhc3RQYXRoQ29tcG9uZW50CiAgICAgICAgICAgIGxldCBkYXRlID0gdmFsdWVzPy5jb250ZW50TW9kaWZpY2F0aW9uRGF0ZSA/PyAuZGlzdGFudFBhc3QKICAgICAgICAgICAgaWYgdmFyIGdyb3VwID0gZ3JvdXBzW2tleV0gewogICAgICAgICAgICAgICAgZ3JvdXAudXJscy5hcHBlbmQoZW50cnkpCiAgICAgICAgICAgICAgICBncm91cC5zaXplICs9IHNpemUKICAgICAgICAgICAgICAgIGdyb3VwLm5ld2VzdCA9IG1heChncm91cC5uZXdlc3QsIGRhdGUpCiAgICAgICAgICAgICAgICBncm91cHNba2V5XSA9IGdyb3VwCiAgICAgICAgICAgIH0gZWxzZSB7CiAgICAgICAgICAgICAgICBncm91cHNba2V5XSA9IChbZW50cnldLCBzaXplLCBkYXRlKQogICAgICAgICAgICB9CiAgICAgICAgfQogICAgICAgIGd1YXJkIHRvdGFsID4gZGlza0NhcCBlbHNlIHsgcmV0dXJuIH0KICAgICAgICBmb3IgZ3JvdXAgaW4gZ3JvdXBzLnZhbHVlcy5zb3J0ZWQoYnk6IHsgJDAubmV3ZXN0IDwgJDEubmV3ZXN0IH0pIHsKICAgICAgICAgICAgaWYgdG90YWwgPD0gZGlza0NhcCB7IGJyZWFrIH0KICAgICAgICAgICAgZm9yIHVybCBpbiBncm91cC51cmxzIHsKICAgICAgICAgICAgICAgIHRyeT8gZm0ucmVtb3ZlSXRlbShhdDogdXJsKQogICAgICAgICAgICB9CiAgICAgICAgICAgIHRvdGFsIC09IGdyb3VwLnNpemUKICAgICAgICB9CiAgICB9CgogICAgLy8gTUFSSzogU2lkZWNhciBjb2RpbmcgJiBhcHAgdmVyc2lvbgoKICAgIHByaXZhdGUgc3RhdGljIHZhciBzaWRlY2FyRW5jb2RlcjogSlNPTkVuY29kZXIgewogICAgICAgIGxldCBlbmNvZGVyID0gSlNPTkVuY29kZXIoKQogICAgICAgIGVuY29kZXIuZGF0ZUVuY29kaW5nU3RyYXRlZ3kgPSAuaXNvODYwMQogICAgICAgIGVuY29kZXIub3V0cHV0Rm9ybWF0dGluZyA9IFsuc29ydGVkS2V5c10KICAgICAgICByZXR1cm4gZW5jb2RlcgogICAgfQoKICAgIHByaXZhdGUgc3RhdGljIHZhciBzaWRlY2FyRGVjb2RlcjogSlNPTkRlY29kZXIgewogICAgICAgIGxldCBkZWNvZGVyID0gSlNPTkRlY29kZXIoKQogICAgICAgIGRlY29kZXIuZGF0ZURlY29kaW5nU3RyYXRlZ3kgPSAuaXNvODYwMQogICAgICAgIHJldHVybiBkZWNvZGVyCiAgICB9CgogICAgcHJpdmF0ZSBzdGF0aWMgdmFyIGFwcFZlcnNpb246IFN0cmluZyB7CiAgICAgICAgbGV0IGluZm8gPSBCdW5kbGUubWFpbi5pbmZvRGljdGlvbmFyeQogICAgICAgIGxldCB2ZXJzaW9uID0gaW5mbz9bIkNGQnVuZGxlU2hvcnRWZXJzaW9uU3RyaW5nIl0gYXM/IFN0cmluZyA/PyAiPyIKICAgICAgICBsZXQgYnVpbGQgPSBpbmZvP1siQ0ZCdW5kbGVWZXJzaW9uIl0gYXM/IFN0cmluZyA/PyAiPyIKICAgICAgICByZXR1cm4gIlwodmVyc2lvbikgKFwoYnVpbGQpKSIKICAgIH0KfQo=
+import Foundation
+import CryptoKit
+
+// MARK: - AutoSub generated-track cache (spec §3.7; item S-4)
+//
+// Content-keyed store for finished Vietnamese cue lists:
+//   • Key: SHA-256 hex of the SOURCE subtitle file's bytes (content
+//     keying — stream/subtitle URLs elsewhere in this app rotate, so
+//     a URL key would silently defeat the cache; §3.7).
+//   • Location: Caches/autosub/ — the app's convention for derived,
+//     re-creatable data (Cache.swift's jtv-images, HLSProxy's
+//     hls-local); iOS may purge it under storage pressure, which is
+//     safe here (worst case: re-translate).
+//   • Artefact per key: <key>.vtt (the §3.3 step-6 WebVTT) plus a
+//     <key>.json sidecar (source language, declared-or-detected,
+//     cue count, character count, created date, engine, app
+//     version).
+//   • Cap: 50 MB, LRU by modification date — with one deliberate
+//     refinement over a literal per-file prune: eviction removes a
+//     key's .vtt and .json TOGETHER, so the directory never keeps
+//     an orphan sidecar whose cue file is gone (or vice versa).
+//     Recency is the newest modification date among the key's
+//     files, and a cache hit refreshes it.
+//
+// Concurrency (FIX 2, R1-concurrency F-2/F-3): this type is an
+// ACTOR. Every piece of file I/O — directory creation, load, store,
+// prune — runs inside actor isolation; there is no serial queue
+// and no `@unchecked Sendable` anywhere. The previous shape ran
+// `queue.sync` bodies that parked the @MainActor caller for the
+// full read/parse/write, and its prune ran in detached tasks
+// OUTSIDE the queue, racing loads and stores. Both are gone:
+// callers `await` the load/store, and prune is an actor method
+// invoked via `Task { await … }` from init and after stores, so a
+// prune can never interleave with a load or store mid-flight.
+
+struct AutoSubCacheSidecar: Codable, Sendable, Equatable {
+    /// Source language raw value: "en" / "zh-Hans" / "zh-Hant" / "ja".
+    var sourceLanguage: String
+    /// True when §3.2.1 identification came from the declaration,
+    /// false when it came from detection.
+    var identifiedViaDeclared: Bool
+    var cueCount: Int
+    /// Character count of the SOURCE cue text (the translation
+    /// volume measure, cf. Part 5 of the spec).
+    var characterCount: Int
+    var createdAt: Date
+    /// "apple-translation/<pairLabel>", e.g. "apple-translation/en-vi".
+    var engine: String
+    /// "<short version> (<build>)" from the app bundle.
+    var appVersion: String
+}
+
+actor AutoSubCache {
+    static let shared = AutoSubCache()
+
+    private let diskDir: URL
+    private let diskCap = 50 * 1024 * 1024
+
+    init() {
+        let caches = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask)[0]
+        diskDir = caches.appendingPathComponent("autosub", isDirectory: true)
+        // The prune (and the directory creation inside it) runs as
+        // an actor job — no file I/O happens in this initialiser
+        // itself, which is nonisolated.
+        Task { await self.prune() }
+    }
+
+    // MARK: Key
+
+    /// The §3.7 cache key for a source subtitle file: SHA-256 hex
+    /// of its bytes (the same CryptoKit primitive Cache.swift's
+    /// diskURL uses, there over a key string). Pure function of the
+    /// bytes — a static member, hence nonisolated, safe to call
+    /// from any context without awaiting the actor.
+    static func key(forSourceData data: Data) -> String {
+        SHA256.hash(data: data).map { String(format: "%02x", $0) }.joined()
+    }
+
+    private func vttURL(for key: String) -> URL {
+        diskDir.appendingPathComponent(key + ".vtt")
+    }
+
+    private func sidecarURL(for key: String) -> URL {
+        diskDir.appendingPathComponent(key + ".json")
+    }
+
+    private func ensureDirectory() {
+        try? FileManager.default.createDirectory(at: diskDir, withIntermediateDirectories: true)
+    }
+
+    // MARK: Load
+
+    /// Returns the cached translation for `key`, or nil on any
+    /// miss — missing files, an unparseable artefact, a broken
+    /// sidecar, or a VALIDATION failure are all just misses (the
+    /// caller re-translates).
+    ///
+    /// FIX (R1-logic m7): validation lives HERE now. When the
+    /// caller supplies the expected cue count / source language,
+    /// an entry that disagrees is a miss — and `autosub cache
+    /// hit=1` is logged ONLY on the path that returns a
+    /// successfully parsed AND validated value (after the parse,
+    /// after the sidecar decode, after validation), never before.
+    /// A hit also refreshes the pair's modification dates, which
+    /// is what makes the eviction below least-RECENTLY-used rather
+    /// than oldest-created.
+    func loadTranslated(
+        key: String,
+        expectedCueCount: Int? = nil,
+        expectedSourceLanguage: String? = nil
+    ) -> (cues: [AutoSubCue], sidecar: AutoSubCacheSidecar)? {
+        ensureDirectory()
+        let fm = FileManager.default
+        guard let vttData = try? Data(contentsOf: vttURL(for: key)),
+              let sidecarData = try? Data(contentsOf: sidecarURL(for: key)),
+              let cues = try? AutoSubSubtitles.parse(vttData),
+              let sidecar = try? Self.sidecarDecoder.decode(AutoSubCacheSidecar.self, from: sidecarData)
+        else { return nil }
+        if let expectedCueCount, cues.count != expectedCueCount { return nil }
+        if let expectedSourceLanguage, sidecar.sourceLanguage != expectedSourceLanguage { return nil }
+        let now = Date()
+        try? fm.setAttributes([.modificationDate: now], ofItemAtPath: vttURL(for: key).path)
+        try? fm.setAttributes([.modificationDate: now], ofItemAtPath: sidecarURL(for: key).path)
+        DiagLog.log("autosub", "cache hit=1 cues=\(cues.count)")
+        return (cues, sidecar)
+    }
+
+    // MARK: Store
+
+    /// Writes the finished translation for `key`: the WebVTT
+    /// artefact (via AutoSubSubtitles.webVTT — assembled here,
+    /// inside the actor, not on the caller's main actor) and its
+    /// sidecar, both atomically, then schedules a prune as an
+    /// actor job. Logs `autosub cache stored bytes=<n>` (§3.8),
+    /// where <n> is the .vtt artefact's byte count.
+    func storeTranslated(
+        key: String,
+        cues: [AutoSubCue],
+        source: AutoSubSourceLanguage,
+        identifiedViaDeclared: Bool,
+        sourceCharCount: Int
+    ) {
+        ensureDirectory()
+        let vtt = AutoSubSubtitles.webVTT(from: cues)
+        let sidecar = AutoSubCacheSidecar(
+            sourceLanguage: source.rawValue,
+            identifiedViaDeclared: identifiedViaDeclared,
+            cueCount: cues.count,
+            characterCount: sourceCharCount,
+            createdAt: Date(),
+            engine: "apple-translation/\(source.pairLabel)",
+            appVersion: Self.appVersion
+        )
+        guard let vttData = vtt.data(using: .utf8),
+              let sidecarData = try? Self.sidecarEncoder.encode(sidecar)
+        else { return }
+        do {
+            try vttData.write(to: vttURL(for: key), options: .atomic)
+            try sidecarData.write(to: sidecarURL(for: key), options: .atomic)
+        } catch {
+            return
+        }
+        DiagLog.log("autosub", "cache stored bytes=\(vttData.count)")
+        // Post-store prune as a separate actor job (FIX 2): it runs
+        // after this store has fully completed, inside the same
+        // isolation, so it can never race the write above.
+        Task { await self.prune() }
+    }
+
+    // MARK: Prune (LRU, actor-isolated)
+
+    /// Evicts least-recently-used keys until the directory is at or
+    /// under the cap. Actor-isolated: it can only run between other
+    /// actor jobs, never concurrently with a load or store
+    /// (R1-concurrency F-3 / R1-logic m6 — the old detached-task
+    /// prune could delete a pair mid-load or just after a store).
+    private func prune() {
+        ensureDirectory()
+        let fm = FileManager.default
+        guard let entries = try? fm.contentsOfDirectory(
+            at: diskDir, includingPropertiesForKeys: [.fileSizeKey, .contentModificationDateKey]
+        ) else { return }
+        var total = 0
+        // Group files by cache key (filename minus extension) so a
+        // key's .vtt + .json are evicted together (see header note).
+        var groups: [String: (urls: [URL], size: Int, newest: Date)] = [:]
+        for entry in entries {
+            let values = try? entry.resourceValues(forKeys: [.fileSizeKey, .contentModificationDateKey])
+            let size = values?.fileSize ?? 0
+            total += size
+            let key = entry.deletingPathExtension().lastPathComponent
+            let date = values?.contentModificationDate ?? .distantPast
+            if var group = groups[key] {
+                group.urls.append(entry)
+                group.size += size
+                group.newest = max(group.newest, date)
+                groups[key] = group
+            } else {
+                groups[key] = ([entry], size, date)
+            }
+        }
+        guard total > diskCap else { return }
+        for group in groups.values.sorted(by: { $0.newest < $1.newest }) {
+            if total <= diskCap { break }
+            for url in group.urls {
+                try? fm.removeItem(at: url)
+            }
+            total -= group.size
+        }
+    }
+
+    // MARK: Sidecar coding & app version
+
+    private static var sidecarEncoder: JSONEncoder {
+        let encoder = JSONEncoder()
+        encoder.dateEncodingStrategy = .iso8601
+        encoder.outputFormatting = [.sortedKeys]
+        return encoder
+    }
+
+    private static var sidecarDecoder: JSONDecoder {
+        let decoder = JSONDecoder()
+        decoder.dateDecodingStrategy = .iso8601
+        return decoder
+    }
+
+    private static var appVersion: String {
+        let info = Bundle.main.infoDictionary
+        let version = info?["CFBundleShortVersionString"] as? String ?? "?"
+        let build = info?["CFBundleVersion"] as? String ?? "?"
+        return "\(version) (\(build))"
+    }
+}

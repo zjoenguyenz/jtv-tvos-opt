@@ -1,1 +1,422 @@
-aW1wb3J0IEZvdW5kYXRpb24KLy8gdHZPUyBhZGFwdGF0aW9uOiBgaW1wb3J0IFVJS2l0YCBkcm9wcGVkIOKAlCBpdHMgb25seSB1c2Ugd2FzCi8vIFVJRGV2aWNlIChleHBvcnQgaGVhZGVyIGJlbG93KSwgcmVwbGFjZWQgd2l0aCBQcm9jZXNzSW5mby4KCi8vLyBJbi1hcHAgZGlhZ25vc3RpYyBsb2cgKExPRyBSRVRSSUVWQUwgTEFXLCBvd25lciBvcmRlcgovLy8gMjAyNi0xMS0xOCk6IGV2ZXJ5IGJ1aWxkIHNoaXBzIGEgd2F5IHRvIGdldCBpdHMgbG9nIG91dCwgc28KLy8vIGZhdWx0cyBhcmUgZml4ZWQgZnJvbSBldmlkZW5jZSBpbnN0ZWFkIG9mIGJsaW5kIGh1bnRpbmcuCi8vLyBPbiB0dk9TIHRoZSBleHBvcnQgaXMgdGhlIExBTiBzZXJ2ZXIgaW4gTG9nRXhwb3J0VmlldwovLy8gKFNldHRpbmdzIOKGkiAiR+G7rWkgbG9nIGNo4bqpbiDEkW/DoW4iKTsgdGhpcyBmaWxlIGlzIHRoZSBsb2cKLy8vIHN0b3JlIGJlaGluZCBpdC4KLy8vCi8vLyBEZXNpZ246Ci8vLyDigKIgUmluZyBidWZmZXIgb2YgdGhlIGxhc3QgfjIsMDAwIGxpbmVzIGluIG1lbW9yeSwgUExVUyBhCi8vLyAgIHdyaXRlLXRocm91Z2ggb24tZGlzayB0d2luIChMLVQwNCAvIEZMLTM0Mik6IGV2ZXJ5IGxpbmUKLy8vICAgaXMgYXBwZW5kZWQgdG8gYGp0di1kaWFnLmxvZ2AgaW4gQXBwbGljYXRpb24gU3VwcG9ydCBhdAovLy8gICB3cml0ZSB0aW1lLCB1bmRlciB0aGUgc2FtZSBsb2NrLCBjYXBwZWQgYXQgMSBNQiB3aXRoCi8vLyAgIHJvdGF0aW9uIGtlZXBpbmcgdGhlIG5ld2VzdCB+NzAwIEtCIOKAlCBKb2VUVidzCi8vLyAgIEpvZURpYWdMb2cgc3RvcmFnZSBzaGFwZSwgcG9ydGVkIGFmdGVyIHRoZSBpbi1tZW1vcnktCi8vLyAgIG9ubHkgb3JpZ2luYWwgbG9zdCBhIGNyYXNoZWQgc2Vzc2lvbidzIGVudGlyZSBsb2cgKHRoZQovLy8gICBjcmFzaCB1bmRlciBkaWFnbm9zaXMgZGVzdHJveWVkIGl0cyBvd24gZXZpZGVuY2UpLiBUaGUKLy8vICAgZXhwb3J0IHNlZWRzIGZyb20gdGhlIGRpc2sgZmlsZSwgc28gYSBjcmFzaGVkIHNlc3Npb24ncwovLy8gICB0YWlsIGlzIGV4cG9ydGFibGUgYXQgdGhlIG5leHQgbGF1bmNoOyB0aGUgbGF1bmNoIGxpbmUKLy8vICAgbWFya3MgdGhlIHNlc3Npb24gYm91bmRhcnkuCi8vLyDigKIgVGhyZWFkIHNhZmV0eTogYSBwbGFpbiBOU0xvY2sgYXJvdW5kIGV2ZXJ5IGFjY2VzcywgdGhlIHNhbWUKLy8vICAgcGF0dGVybiBJbWFnZUNhY2hlTWFuYWdlciB1c2VzLiBBbiBhY3RvciB3YXMgcmVqZWN0ZWQ6IHRoZQovLy8gICBjYWxsIHNpdGVzIGFyZSBzeW5jaHJvbm91cyAoVUlLaXQgZXJyb3Igc3VyZmFjZXMsIHRoZQovLy8gICBub24taXNvbGF0ZWQgaW1hZ2UgY2FjaGUsIHRpbWVyIGNsb3N1cmVzKSBhbmQgZm9yY2luZyBhbgovLy8gICBhc3luYyBob3AgYXQgZWFjaCBvbmUgd291bGQgc2NhdHRlciBUYXNrcyB0aHJvdWdoIGNvZGUKLy8vICAgcGF0aHMgdGhhdCBtdXN0IHN0YXkgZXhhY3RseSBhcyB0aGV5IGFyZS4gVGhlIGNsYXNzIGlzCi8vLyAgIHRoZXJlZm9yZSBgQHVuY2hlY2tlZCBTZW5kYWJsZWAgd2l0aCBBTEwgbXV0YWJsZSBzdGF0ZSDigJQKLy8vICAgYnVmZmVyIGFuZCBkYXRlIGZvcm1hdHRlcnMgYWxpa2Ug4oCUIHRvdWNoZWQgb25seSB3aGlsZSB0aGUKLy8vICAgbG9jayBpcyBoZWxkLgovLy8g4oCiIFJFREFDVElPTiAoaGFyZCBydWxlKTogZGVicmlkIHRva2VucywgdGhlIE1lZGlhRnVzaW9uCi8vLyAgIG1hbmlmZXN0IFVSTCBhbmQgc2lnbmVkLVVSTCBxdWVyeSBzdHJpbmdzIG11c3QgTkVWRVIgcmVhY2gKLy8vICAgdGhpcyBidWZmZXIuIENhbGwgc2l0ZXMgbG9nIGhvc3RzIGFuZCBwYXRocyB2aWEKLy8vICAgYHVybEZvckxvZyhfOilgIChzY2hlbWUgKyBob3N0ICsgcGF0aCwgcXVlcnkgYW5kIGZyYWdtZW50Ci8vLyAgIHN0cmlwcGVkLCBjcmVkZW50aWFscyBkcm9wcGVkKSBhbmQgcmVmZXIgdG8gc2VjcmV0cyBvbmx5Ci8vLyAgIGJ5IGNvbmZpZ3VyZWQgeWVzL25vLiBUaGVyZSBpcyBkZWxpYmVyYXRlbHkgbm8gQVBJIHRoYXQKLy8vICAgdGFrZXMgYSByYXcgVVJMLiBBcyBkZWZlbmNlIGluIGRlcHRoIOKAlCBiZWNhdXNlIGxpbmVzIG5vdwovLy8gICBhbHNvIHJlYWNoIERJU0sg4oCUIGBhcHBlbmRgIGFkZGl0aW9uYWxseSBydW5zIGEgY2VudHJhbAovLy8gICBzY3J1YiBvdmVyIGV2ZXJ5IG1lc3NhZ2UgKEpvZVRWJ3Mgd3JpdGUoKSBkaXNjaXBsaW5lLAovLy8gICBhZGFwdGVkKTogYW55IFVSTCBydW4gbG9zZXMgaXRzIHF1ZXJ5IGFuZCBmcmFnbWVudCwgYQovLy8gICBzY2hlbWUtbGVzcyBjcmVkZW50aWFsIGNvbmZpZyBiYXNlIGlzIGVyYXNlZCB3aG9sZSwgYW5kCi8vLyAgIGV2ZXJ5IGNyZWRlbnRpYWwgdmFsdWUgaW4gZm9yY2UgaXMgZXJhc2VkIHdoZXJldmVyIGl0Ci8vLyAgIGFwcGVhcnMuIFBhdGhzIHN1cnZpdmUgdGhlIHNjcnViIGJ5IGRlc2lnbjoKLy8vICAgdGhlIHJvdXRlIGxpbmVzIGRpYWdub3NpcyBkZXBlbmRzIG9uIG11c3Qgbm90IGNoYW5nZQovLy8gICBzaGFwZSwgYW5kIGB1cmxGb3JMb2dgICsgYHJlZ2lzdGVyQ3JlZGVudGlhbEhvc3RgIGFyZQovLy8gICB3aGF0IGtlZXAgY3JlZGVudGlhbC1jYXJyeWluZyBwYXRocyBvdXQgaW4gdGhlIGZpcnN0Ci8vLyAgIHBsYWNlLgovLy8g4oCiIHYxLjIyLjE1OiBob3N0cyByZWdpc3RlcmVkIHZpYSBgcmVnaXN0ZXJDcmVkZW50aWFsSG9zdChfOilgCi8vLyAgIGNhcnJ5IHRoZWlyIGNyZWRlbnRpYWwgaW4gdGhlIFVSTCBQQVRIICh0aGUgTWVkaWFGdXNpb24KLy8vICAgbWFuaWZlc3QpLCBzbyBmb3IgdGhvc2UgaG9zdHMgYHVybEZvckxvZyhfOilgIGRyb3BzIHRoZQovLy8gICBwYXRoIGVudGlyZWx5IOKAlCBzY2hlbWUgKyBob3N0ICgrIHBvcnQpICsgIi/igKYiIG9ubHkuIEV2ZXJ5Ci8vLyAgIG5vbi1yZWdpc3RlcmVkIGhvc3Qga2VlcHMgdGhlIHBhdGggZXhhY3RseSBhcyBiZWZvcmU6IHRoZQovLy8gICByb3V0ZSBsaW5lcyBkaWFnbm9zaXMgZGVwZW5kcyBvbiBtdXN0IG5vdCBjaGFuZ2Ugc2hhcGUuCmZpbmFsIGNsYXNzIERpYWdMb2c6IEB1bmNoZWNrZWQgU2VuZGFibGUgewogICAgc3RhdGljIGxldCBzaGFyZWQgPSBEaWFnTG9nKCkKCiAgICBwcml2YXRlIGxldCBsb2NrID0gTlNMb2NrKCkKICAgIHByaXZhdGUgdmFyIGxpbmVzOiBbU3RyaW5nXSA9IFtdCiAgICBwcml2YXRlIGxldCBjYXBhY2l0eSA9IDIwMDAKICAgIC8vLyBIb3N0cyB3aG9zZSBVUkwgcGF0aCBjYXJyaWVzIGEgY3JlZGVudGlhbCAodjEuMjIuMTUsIHNlZQogICAgLy8vIHRoZSByZWRhY3Rpb24gbm90ZSBhYm92ZSkuIFRvdWNoZWQgb25seSB3aGlsZSBgbG9ja2AgaXMKICAgIC8vLyBoZWxkLCBsaWtlIGV2ZXJ5IG90aGVyIHBpZWNlIG9mIG11dGFibGUgc3RhdGUgaGVyZS4KICAgIHByaXZhdGUgdmFyIGNyZWRlbnRpYWxIb3N0czogU2V0PFN0cmluZz4gPSBbXQoKICAgIC8vLyBUaGUgb24tZGlzayB0d2luJ3MgZmlsZSAoQXBwbGljYXRpb24gU3VwcG9ydCAvCiAgICAvLy8ganR2LWRpYWcubG9nOyBzZWUgdGhlIGRlc2lnbiBub3RlKS4gUmVzb2x2ZWQgT05DRSBpbgogICAgLy8vIGluaXQgYW5kIGltbXV0YWJsZSBhZnRlcndhcmRzLCBzbyByZWFkcyBuZWVkIG5vIGxvY2suCiAgICBwcml2YXRlIGxldCBmaWxlVVJMOiBVUkwKICAgIC8vLyBXcml0ZXMgc2luY2UgbGF1bmNoOyB0aGUgcm90YXRpb24gY2hlY2sgcnVucyBldmVyeSA2NAogICAgLy8vIHdyaXRlcyAoSm9lVFYncyBjYWRlbmNlKS4gVG91Y2hlZCBvbmx5IHdoaWxlIGBsb2NrYCBpcwogICAgLy8vIGhlbGQuCiAgICBwcml2YXRlIHZhciB3cml0ZUNvdW50ZXIgPSAwCiAgICAvLy8gQm91bmRlZCBkaXNrIHNpemUgKEpvZVRWJ3MgY2Fwcyk6IHRoZSBmaWxlIGlzIGNhcHBlZAogICAgLy8vIGF0IDEgTUI7IG9uIHJvdGF0aW9uIHRoZSBuZXdlc3QgfjcwMCBLQiBhcmUga2VwdC4KICAgIHByaXZhdGUgc3RhdGljIGxldCBzaXplQ2FwID0gMV8wMDBfMDAwCiAgICBwcml2YXRlIHN0YXRpYyBsZXQgcm90YXRpb25LZWVwQnl0ZXMgPSA3MDBfMDAwCgogICAgLy8vIFRoZSBjZW50cmFsIHNjcnViJ3MgVVJMIHBhdHRlcm46IGEgd2hvbGUgVVJMIHJ1biDigJQgbm8KICAgIC8vLyB3aGl0ZXNwYWNlLCBubyBxdW90ZXMgKEpvZVRWJ3MgcGF0dGVybiBzaGFwZSkuCiAgICBwcml2YXRlIHN0YXRpYyBsZXQgdXJsUmVnZXggPSB0cnkhIE5TUmVndWxhckV4cHJlc3Npb24oCiAgICAgICAgcGF0dGVybjogIyIoP2kpKD86aHR0cHM/fHN0cmVtaW8pOi8vW15ccyInXSsiIykKCiAgICAvLy8gQSBzY2hlbWUtbGVzcyBUb3JyZW50aW8tc3R5bGUgY29uZmlnIGJhc2U6IGEgcnVuCiAgICAvLy8gY2FycnlpbmcgcmVhbGRlYnJpZD0gLyB0b3Jib3g9IC8gcHJlbWl1bWl6ZT0gc2VnbWVudHMKICAgIC8vLyB3aXRoIG5vIHNjaGVtZSBpbiBmcm9udCBvZiBpdCAodGhlIHNoYXBlIGEgYmFyZSBiYXNlIG9yCiAgICAvLy8gYW4gZW5naW5lIGVycm9yIHRha2VzKS4gRXJhc2VkIHdob2xlIOKAlCBob3N0IGluY2x1ZGVkIOKAlAogICAgLy8vIGJlY2F1c2UgdGhlIHJ1bidzIHBhdGggSVMgdGhlIGNyZWRlbnRpYWwgKEpvZVRWJ3MKICAgIC8vLyBwYXNzIDIsIHBvcnRlZCBpbiB0aGUgTC1UMDQgZml4IHBhc3MpLgogICAgcHJpdmF0ZSBzdGF0aWMgbGV0IGNvbmZpZ0Jhc2VSZWdleCA9IHRyeSEgTlNSZWd1bGFyRXhwcmVzc2lvbigKICAgICAgICBwYXR0ZXJuOiAjIig/aSlbXlxzIiddKig/OnJlYWxkZWJyaWR8dG9yYm94fHByZW1pdW1pemUpPVteXHMiJ10qIiMpCgogICAgLy8vIEZvcm1hdHRlcnMgYXJlIGNyZWF0ZWQgb25jZSBhbmQgb25seSBldmVyIHVzZWQgd2hpbGUKICAgIC8vLyBgbG9ja2AgaXMgaGVsZCAoc2VlIGFwcGVuZC9leHBvcnQpLCBzbyB0aGV5IG5lZWQgbm8KICAgIC8vLyBzeW5jaHJvbml6YXRpb24gb2YgdGhlaXIgb3duLgogICAgcHJpdmF0ZSBsZXQgdGltZUZvcm1hdHRlcjogRGF0ZUZvcm1hdHRlciA9IHsKICAgICAgICBsZXQgZiA9IERhdGVGb3JtYXR0ZXIoKQogICAgICAgIGYubG9jYWxlID0gTG9jYWxlKGlkZW50aWZpZXI6ICJlbl9VU19QT1NJWCIpCiAgICAgICAgZi5kYXRlRm9ybWF0ID0gIkhIOm1tOnNzLlNTUyIKICAgICAgICByZXR1cm4gZgogICAgfSgpCiAgICBwcml2YXRlIGxldCBleHBvcnREYXRlRm9ybWF0dGVyOiBEYXRlRm9ybWF0dGVyID0gewogICAgICAgIGxldCBmID0gRGF0ZUZvcm1hdHRlcigpCiAgICAgICAgZi5sb2NhbGUgPSBMb2NhbGUoaWRlbnRpZmllcjogImVuX1VTX1BPU0lYIikKICAgICAgICBmLmRhdGVGb3JtYXQgPSAieXl5eS1NTS1kZCBISDptbTpzcyBaWlpaWiIKICAgICAgICByZXR1cm4gZgogICAgfSgpCgogICAgcHJpdmF0ZSBpbml0KCkgewogICAgICAgIGZpbGVVUkwgPSBTZWxmLnJlc29sdmVGaWxlVVJMKCkKICAgIH0KCiAgICAvLy8gVGhlIGxvZydzIGRpcmVjdG9yeTogQXBwbGljYXRpb24gU3VwcG9ydCAoY3JlYXRlZCBpZgogICAgLy8vIG5lZWRlZCksIGZhbGxpbmcgYmFjayB0byBDYWNoZXMsIHRoZW4gdGhlIHRlbXBvcmFyeQogICAgLy8vIGRpcmVjdG9yeSDigJQgSm9lRGlhZ0xvZy5zd2lmdCdzIGRpcmVjdG9yeSBjaG9pY2UsCiAgICAvLy8gbWlycm9yZWQuCiAgICBwcml2YXRlIHN0YXRpYyBmdW5jIHJlc29sdmVGaWxlVVJMKCkgLT4gVVJMIHsKICAgICAgICBsZXQgZm0gPSBGaWxlTWFuYWdlci5kZWZhdWx0CiAgICAgICAgaWYgbGV0IGJhc2UgPSB0cnk/IGZtLnVybChmb3I6IC5hcHBsaWNhdGlvblN1cHBvcnREaXJlY3RvcnksCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBpbjogLnVzZXJEb21haW5NYXNrLAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgYXBwcm9wcmlhdGVGb3I6IG5pbCwgY3JlYXRlOiB0cnVlKSB7CiAgICAgICAgICAgIHRyeT8gZm0uY3JlYXRlRGlyZWN0b3J5KGF0OiBiYXNlLAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB3aXRoSW50ZXJtZWRpYXRlRGlyZWN0b3JpZXM6IHRydWUpCiAgICAgICAgICAgIHJldHVybiBiYXNlLmFwcGVuZGluZ1BhdGhDb21wb25lbnQoImp0di1kaWFnLmxvZyIpCiAgICAgICAgfQogICAgICAgIGlmIGxldCBiYXNlID0gdHJ5PyBmbS51cmwoZm9yOiAuY2FjaGVzRGlyZWN0b3J5LAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgaW46IC51c2VyRG9tYWluTWFzaywKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGFwcHJvcHJpYXRlRm9yOiBuaWwsIGNyZWF0ZTogdHJ1ZSkgewogICAgICAgICAgICB0cnk/IGZtLmNyZWF0ZURpcmVjdG9yeShhdDogYmFzZSwKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgd2l0aEludGVybWVkaWF0ZURpcmVjdG9yaWVzOiB0cnVlKQogICAgICAgICAgICByZXR1cm4gYmFzZS5hcHBlbmRpbmdQYXRoQ29tcG9uZW50KCJqdHYtZGlhZy5sb2ciKQogICAgICAgIH0KICAgICAgICByZXR1cm4gZm0udGVtcG9yYXJ5RGlyZWN0b3J5LmFwcGVuZGluZ1BhdGhDb21wb25lbnQoImp0di1kaWFnLmxvZyIpCiAgICB9CgogICAgLy8gTUFSSzogLSBMb2dnaW5nCgogICAgc3RhdGljIGZ1bmMgbG9nKF8gY2F0ZWdvcnk6IFN0cmluZywgXyBtZXNzYWdlOiBTdHJpbmcpIHsKICAgICAgICBzaGFyZWQuYXBwZW5kKGNhdGVnb3J5OiBjYXRlZ29yeSwgbWVzc2FnZTogbWVzc2FnZSkKICAgIH0KCiAgICBwcml2YXRlIGZ1bmMgYXBwZW5kKGNhdGVnb3J5OiBTdHJpbmcsIG1lc3NhZ2U6IFN0cmluZykgewogICAgICAgIC8vIFNjcnViICsgZmxhdHRlbiBCRUZPUkUgdGhlIGxvY2sgKHRoZSBzY3J1YiB0b3VjaGVzCiAgICAgICAgLy8gb25seSBpbW11dGFibGUgc3RhdGljcywgQ0ktaW5qZWN0ZWQgY29uc3RhbnRzIGFuZAogICAgICAgIC8vIHRocmVhZC1zYWZlIFVzZXJEZWZhdWx0cyByZWFkcyDigJQgc2VlIHNlY3JldFZhbHVlcyk6CiAgICAgICAgLy8gb25lIHdyaXRlIGlzIGFsd2F5cyBleGFjdGx5IG9uZSBsaW5lLCBpbiB0aGUgYnVmZmVyCiAgICAgICAgLy8gYW5kIG9uIGRpc2sgYWxpa2UgKEpvZVRWJ3Mgd3JpdGUoKSBkaXNjaXBsaW5lKS4KICAgICAgICBsZXQgY2xlYW4gPSBTZWxmLnNjcnViYmVkKG1lc3NhZ2UpCiAgICAgICAgICAgIC5yZXBsYWNpbmdPY2N1cnJlbmNlcyhvZjogIlxuIiwgd2l0aDogIiAiKQogICAgICAgICAgICAucmVwbGFjaW5nT2NjdXJyZW5jZXMob2Y6ICJcciIsIHdpdGg6ICIgIikKICAgICAgICBsb2NrLndpdGhMb2NrIHsKICAgICAgICAgICAgbGV0IGxpbmUgPSAiXCh0aW1lRm9ybWF0dGVyLnN0cmluZyhmcm9tOiBEYXRlKCkpKSBbXChjYXRlZ29yeSldIFwoY2xlYW4pIgogICAgICAgICAgICBsaW5lcy5hcHBlbmQobGluZSkKICAgICAgICAgICAgaWYgbGluZXMuY291bnQgPiBjYXBhY2l0eSB7CiAgICAgICAgICAgICAgICBsaW5lcy5yZW1vdmVGaXJzdChsaW5lcy5jb3VudCAtIGNhcGFjaXR5KQogICAgICAgICAgICB9CiAgICAgICAgICAgIGFwcGVuZFRvRGlza0xvY2tlZChsaW5lKQogICAgICAgICAgICB3cml0ZUNvdW50ZXIgKz0gMQogICAgICAgICAgICBpZiB3cml0ZUNvdW50ZXIgJSA2NCA9PSAwIHsKICAgICAgICAgICAgICAgIHJvdGF0ZUlmTmVlZGVkTG9ja2VkKCkKICAgICAgICAgICAgfQogICAgICAgIH0KICAgIH0KCiAgICAvLy8gQXBwZW5kIG9uZSBmb3JtYXR0ZWQgbGluZSB0byB0aGUgb24tZGlzayB0d2luOiBjcmVhdGUKICAgIC8vLyB0aGUgZmlsZSBvbiBmaXJzdCB1c2UsIHRoZW4gd3JpdGUgYXQgaXRzIGVuZCB0aHJvdWdoIGEKICAgIC8vLyBmaWxlIGhhbmRsZS4gQ2FsbGVkIG9ubHkgd2hpbGUgYGxvY2tgIGlzIGhlbGQuIEZhaWx1cmVzCiAgICAvLy8gYXJlIHNpbGVudCBieSBkZXNpZ24g4oCUIGEgZGlhZ25vc3RpYyBsb2cgbXVzdCBuZXZlciBiZQogICAgLy8vIGFibGUgdG8gYnJlYWsgdGhlIGZlYXR1cmUgaXQgaXMgb2JzZXJ2aW5nLiBPbmUKICAgIC8vLyBkZWxpYmVyYXRlIGRpdmVyZ2VuY2UgZnJvbSBKb2VUVidzIGFwcGVuZExvY2tlZDogd2hlbgogICAgLy8vIHRoZSBoYW5kbGUgY2Fubm90IGJlIG9wZW5lZCwgSm9lVFYgZmFsbHMgYmFjayB0bwogICAgLy8vIGBkYXRhLndyaXRlKHRvOilgLCB3aGljaCBPVkVSV1JJVEVTIHRoZSB3aG9sZSBmaWxlIHdpdGgKICAgIC8vLyB0aGUgc2luZ2xlIG5ldyBsaW5lOyBoZXJlIHRoZSBsaW5lIGlzIGRyb3BwZWQgaW5zdGVhZCDigJQKICAgIC8vLyBsb3Npbmcgb25lIGxpbmUgYmVhdHMgc2lsZW50bHkgdHJ1bmNhdGluZyB0aGUgaGlzdG9yeQogICAgLy8vIHRoaXMgZmlsZSBleGlzdHMgdG8gcHJlc2VydmUgKHJldmlldyBMZW5zIEEsIDEuMi4xKS4KICAgIHByaXZhdGUgZnVuYyBhcHBlbmRUb0Rpc2tMb2NrZWQoXyBsaW5lOiBTdHJpbmcpIHsKICAgICAgICBndWFyZCBsZXQgZGF0YSA9IChsaW5lICsgIlxuIikuZGF0YSh1c2luZzogLnV0ZjgpIGVsc2UgeyByZXR1cm4gfQogICAgICAgIGxldCBmbSA9IEZpbGVNYW5hZ2VyLmRlZmF1bHQKICAgICAgICBpZiAhZm0uZmlsZUV4aXN0cyhhdFBhdGg6IGZpbGVVUkwucGF0aCkgewogICAgICAgICAgICBmbS5jcmVhdGVGaWxlKGF0UGF0aDogZmlsZVVSTC5wYXRoLCBjb250ZW50czogbmlsKQogICAgICAgIH0KICAgICAgICBpZiBsZXQgaGFuZGxlID0gdHJ5PyBGaWxlSGFuZGxlKGZvcldyaXRpbmdUbzogZmlsZVVSTCkgewogICAgICAgICAgICBkZWZlciB7IHRyeT8gaGFuZGxlLmNsb3NlKCkgfQogICAgICAgICAgICBfID0gdHJ5PyBoYW5kbGUuc2Vla1RvRW5kKCkKICAgICAgICAgICAgdHJ5PyBoYW5kbGUud3JpdGUoY29udGVudHNPZjogZGF0YSkKICAgICAgICB9CiAgICB9CgogICAgLy8vIFJvdGF0aW9uLCBjYWxsZWQgdW5kZXIgdGhlIGxvY2sgZXZlcnkgNjQgd3JpdGVzOiB3aGVuCiAgICAvLy8gdGhlIGZpbGUgaXMgb3ZlciB0aGUgY2FwLCBkcm9wIGZyb20gdGhlIGZyb250IHVwIHRvIHRoZQogICAgLy8vIGZpcnN0IG5ld2xpbmUgQUZURVIgKHNpemUg4oiSIGtlZXBCeXRlcykg4oCUIHNvIHRoZSBrZXB0CiAgICAvLy8gdGFpbCBzdGFydHMgb24gYSB3aG9sZSBsaW5lIOKAlCBhbmQgcHJlcGVuZCBhIG1hcmtlcgogICAgLy8vIHNheWluZyB0aGUgb2xkZXIgbGluZXMgYXJlIGdvbmUuIFRoZSBuZXdlc3QgY29udGVudCBpcwogICAgLy8vIGFsd2F5cyBrZXB0IChKb2VUVidzIHJvdGF0ZUlmTmVlZGVkTG9ja2VkIHNoYXBlOyB0aGUKICAgIC8vLyBtYXJrZXIgdXNlcyB0aGlzIGxvZ2dlcidzIG93biBsaW5lIGZvcm1hdCkuCiAgICBwcml2YXRlIGZ1bmMgcm90YXRlSWZOZWVkZWRMb2NrZWQoKSB7CiAgICAgICAgbGV0IGZtID0gRmlsZU1hbmFnZXIuZGVmYXVsdAogICAgICAgIGd1YXJkIGxldCBhdHRycyA9IHRyeT8gZm0uYXR0cmlidXRlc09mSXRlbShhdFBhdGg6IGZpbGVVUkwucGF0aCksCiAgICAgICAgICAgICAgbGV0IHNpemUgPSBhdHRyc1suc2l6ZV0gYXM/IEludCwgc2l6ZSA+IFNlbGYuc2l6ZUNhcCwKICAgICAgICAgICAgICBsZXQgZGF0YSA9IHRyeT8gRGF0YShjb250ZW50c09mOiBmaWxlVVJMKSwKICAgICAgICAgICAgICBkYXRhLmNvdW50ID4gU2VsZi5yb3RhdGlvbktlZXBCeXRlcwogICAgICAgIGVsc2UgeyByZXR1cm4gfQogICAgICAgIGxldCB0aHJlc2hvbGQgPSBkYXRhLmNvdW50IC0gU2VsZi5yb3RhdGlvbktlZXBCeXRlcwogICAgICAgIHZhciBzdGFydCA9IGRhdGEuY291bnQKICAgICAgICBpZiBsZXQgbmV3bGluZSA9IGRhdGFbdGhyZXNob2xkLi4uXS5maXJzdEluZGV4KG9mOiAweDBBKSB7CiAgICAgICAgICAgIHN0YXJ0ID0gbmV3bGluZSArIDEKICAgICAgICB9CiAgICAgICAgbGV0IG1hcmtlciA9ICJcKHRpbWVGb3JtYXR0ZXIuc3RyaW5nKGZyb206IERhdGUoKSkpIFtkaWFnXSBsb2cgcm90YXRlZCDigJQgb2xkZXIgbGluZXMgZHJvcHBlZFxuIgogICAgICAgIHZhciByb3RhdGVkID0gRGF0YShtYXJrZXIudXRmOCkKICAgICAgICBpZiBzdGFydCA8IGRhdGEuY291bnQgewogICAgICAgICAgICByb3RhdGVkLmFwcGVuZChkYXRhW3N0YXJ0Li4uXSkKICAgICAgICB9CiAgICAgICAgdHJ5PyByb3RhdGVkLndyaXRlKHRvOiBmaWxlVVJMKQogICAgfQoKICAgIC8vLyBUaGUgb24tZGlzayB0d2luJ3MgY3VycmVudCBsaW5lcyAob2xkZXN0IGZpcnN0KSwgcmVhZAogICAgLy8vIHdoaWxlIGBsb2NrYCBpcyBoZWxkLiBFbXB0eSB3aGVuIHRoZSBmaWxlIGlzIGFic2VudCBvcgogICAgLy8vIHVucmVhZGFibGUg4oCUIHRoZSBleHBvcnQgdGhlbiBmYWxscyBiYWNrIHRvIHRoZSBidWZmZXIuCiAgICBwcml2YXRlIGZ1bmMgZGlza0xpbmVzTG9ja2VkKCkgLT4gW1N0cmluZ10gewogICAgICAgIGd1YXJkIGxldCBkYXRhID0gdHJ5PyBEYXRhKGNvbnRlbnRzT2Y6IGZpbGVVUkwpLAogICAgICAgICAgICAgIGxldCB0ZXh0ID0gU3RyaW5nKGRhdGE6IGRhdGEsIGVuY29kaW5nOiAudXRmOCkgZWxzZSB7IHJldHVybiBbXSB9CiAgICAgICAgcmV0dXJuIHRleHQuc3BsaXQoc2VwYXJhdG9yOiAiXG4iLCBvbWl0dGluZ0VtcHR5U3Vic2VxdWVuY2VzOiB0cnVlKS5tYXAoU3RyaW5nLmluaXQpCiAgICB9CgogICAgLy8vIENlbnRyYWwgc2NydWIgKHNlZSB0aGUgcmVkYWN0aW9uIG5vdGUgaW4gdGhlIGhlYWRlcik6CiAgICAvLy8gMS4gRXZlcnkgVVJMIHJ1biBsb3NlcyBpdHMgcXVlcnkgYW5kIGZyYWdtZW50IOKAlCB0aGUKICAgIC8vLyAgICBwYXJ0cyB3aGVyZSBzaWduZWQgVVJMcyBhbmQgbWludGVkIGxpbmtzIGNhcnJ5CiAgICAvLy8gICAgY3JlZGVudGlhbHMuIFNjaGVtZSwgaG9zdCBhbmQgcGF0aCBzdXJ2aXZlIHVudG91Y2hlZAogICAgLy8vICAgIChzdHJpbmcgc3VyZ2VyeSBvbmx5LCBubyBwYXJzZS9yZWJ1aWxkLCBzbyBhIGxpbmUgYQogICAgLy8vICAgIGNhbGwgc2l0ZSBhbHJlYWR5IHNoYXBlZCB2aWEgYHVybEZvckxvZ2AgcGFzc2VzCiAgICAvLy8gICAgdGhyb3VnaCBieXRlLWlkZW50aWNhbCkuCiAgICAvLy8gMi4gQSBzY2hlbWUtbGVzcyBjb25maWcgYmFzZSAoYSBydW4gY2FycnlpbmcKICAgIC8vLyAgICByZWFsZGVicmlkPSAvIHRvcmJveD0gLyBwcmVtaXVtaXplPSB3aXRoIG5vIHNjaGVtZSkKICAgIC8vLyAgICBpcyBlcmFzZWQgd2hvbGUgKEpvZVRWJ3MgcGFzcyAyKS4KICAgIC8vLyAzLiBWYWx1ZSBwYXNzOiBldmVyeSBjcmVkZW50aWFsIHZhbHVlIGluIGZvcmNlIGlzCiAgICAvLy8gICAgZXJhc2VkIHdoZXJldmVyIGl0IGFwcGVhcnMsIGluIGFueSBzaGFwZSDigJQgdGhlCiAgICAvLy8gICAgcGFzcyB0aGF0IGNhdGNoZXMgYSBiYXJlIHRva2VuIGluc2lkZSBhbiBlbmdpbmUKICAgIC8vLyAgICBlcnJvciBzdHJpbmcgKEpvZVRWJ3MgcGFzcyAzKS4gVGhlIE1lZGlhRnVzaW9uIFVSTAogICAgLy8vICAgIGlzIGFsc28gbGlzdGVkIHNjaGVtZS1zdHJpcHBlZDogYW4gZXJyb3IgbWF5IGNhcnJ5CiAgICAvLy8gICAgaXQgYXMgYSBiYXJlIGhvc3QvcGF0aCBmcmFnbWVudC4KICAgIHByaXZhdGUgc3RhdGljIGZ1bmMgc2NydWJiZWQoXyBtZXNzYWdlOiBTdHJpbmcpIC0+IFN0cmluZyB7CiAgICAgICAgdmFyIHJlc3VsdCA9IG1lc3NhZ2UKICAgICAgICBsZXQgZnVsbCA9IE5TUmFuZ2UobG9jYXRpb246IDAsCiAgICAgICAgICAgICAgICAgICAgICAgICAgIGxlbmd0aDogKHJlc3VsdCBhcyBOU1N0cmluZykubGVuZ3RoKQogICAgICAgIGZvciBtYXRjaCBpbiB1cmxSZWdleC5tYXRjaGVzKGluOiByZXN1bHQsIHJhbmdlOiBmdWxsKS5yZXZlcnNlZCgpIHsKICAgICAgICAgICAgZ3VhcmQgbGV0IHJhbmdlID0gUmFuZ2UobWF0Y2gucmFuZ2UsIGluOiByZXN1bHQpIGVsc2UgeyBjb250aW51ZSB9CiAgICAgICAgICAgIGxldCByYXcgPSBTdHJpbmcocmVzdWx0W3JhbmdlXSkKICAgICAgICAgICAgbGV0IGN1dCA9IHJhdy5maXJzdEluZGV4KHdoZXJlOiB7ICQwID09ICI/IiB8fCAkMCA9PSAiIyIgfSkgPz8gcmF3LmVuZEluZGV4CiAgICAgICAgICAgIHJlc3VsdC5yZXBsYWNlU3VicmFuZ2UocmFuZ2UsIHdpdGg6IFN0cmluZyhyYXdbLi48Y3V0XSkpCiAgICAgICAgfQogICAgICAgIGxldCByZXN0ID0gTlNSYW5nZShsb2NhdGlvbjogMCwKICAgICAgICAgICAgICAgICAgICAgICAgICAgbGVuZ3RoOiAocmVzdWx0IGFzIE5TU3RyaW5nKS5sZW5ndGgpCiAgICAgICAgZm9yIG1hdGNoIGluIGNvbmZpZ0Jhc2VSZWdleC5tYXRjaGVzKGluOiByZXN1bHQsCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHJhbmdlOiByZXN0KS5yZXZlcnNlZCgpIHsKICAgICAgICAgICAgZ3VhcmQgbGV0IHJhbmdlID0gUmFuZ2UobWF0Y2gucmFuZ2UsIGluOiByZXN1bHQpIGVsc2UgeyBjb250aW51ZSB9CiAgICAgICAgICAgIHJlc3VsdC5yZXBsYWNlU3VicmFuZ2UocmFuZ2UsIHdpdGg6ICJbcmVkYWN0ZWRdIikKICAgICAgICB9CiAgICAgICAgZm9yIHNlY3JldCBpbiBzZWNyZXRWYWx1ZXMoKSB7CiAgICAgICAgICAgIHJlc3VsdCA9IHJlc3VsdC5yZXBsYWNpbmdPY2N1cnJlbmNlcyhvZjogc2VjcmV0LAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgd2l0aDogIltyZWRhY3RlZF0iKQogICAgICAgIH0KICAgICAgICByZXR1cm4gcmVzdWx0CiAgICB9CgogICAgLy8vIEV2ZXJ5IGNyZWRlbnRpYWwgdmFsdWUgaW4gZm9yY2UsIGxvbmdlc3QgZmlyc3Qgc28gYQogICAgLy8vIGxvbmdlciB2YWx1ZSBpcyBlcmFzZWQgYmVmb3JlIGFueSBzaG9ydGVyIHZhbHVlIGl0CiAgICAvLy8gY29udGFpbnMuIFNvdXJjZXMgKEpvZVRWJ3MgZ2F0aGVyLWJvdGggZGlzY2lwbGluZSk6IHRoZQogICAgLy8vIEVGRkVDVElWRSB0b2tlbiB2YWx1ZXMgdmlhIGBEZWJyaWRUb2tlbnNgIChhIHN0b3JlZAogICAgLy8vIFVzZXJEZWZhdWx0cyB2YWx1ZSB3aW5zLCB0aGUgYmFrZWQgYERlYnJpZFNlY3JldHNgCiAgICAvLy8gdmFsdWUgaXMgdGhlIGZhbGxiYWNrKSwgdGhlIGJha2VkIGBEZWJyaWRTZWNyZXRzYCBhbmQKICAgIC8vLyBgQnVuZGxlZFNlY3JldHNgIHZhbHVlcyB0aGVtc2VsdmVzIChhIGJha2VkIHZhbHVlIGNhbgogICAgLy8vIHJpZGUgYW4gZW5naW5lIGVycm9yIHN0cmluZyBldmVuIHdoZW4gYSBzdG9yZWQgdmFsdWUKICAgIC8vLyBoYXMgb3ZlcnJpZGRlbiBpdCksIGFuZCB0aGUgTWVkaWFGdXNpb24gVVJMIGluIGV2ZXJ5CiAgICAvLy8gZm9ybSBpbiBmb3JjZSDigJQgc3RvcmVkLCBidW5kbGVkLCBhbmQgdGhlIGRlcml2ZWQKICAgIC8vLyBgTWVkaWFGdXNpb24uYmFzZVVSTGAgcmVxdWVzdHMgYXJlIGJ1aWx0IGZyb20uIFZhbHVlcyB1bmRlciA4CiAgICAvLy8gY2hhcmFjdGVycyBhcmUgc2tpcHBlZCDigJQgdG9vIHNob3J0IHRvIGJlIGEgY3JlZGVudGlhbCwKICAgIC8vLyB0b28gbGlrZWx5IHRvIGJlIGFuIGlubm9jZW50IHN1YnN0cmluZyBvZiBvcmRpbmFyeQogICAgLy8vIHRleHQgKEpvZVRWJ3MgZmxvb3IpLgogICAgcHJpdmF0ZSBzdGF0aWMgZnVuYyBzZWNyZXRWYWx1ZXMoKSAtPiBbU3RyaW5nXSB7CiAgICAgICAgLy8gT25seSB0aGUgY3JlZGVudGlhbC1jYXJyeWluZyBmb3JtIG9mIHRoZSBkZXJpdmVkCiAgICAgICAgLy8gTWVkaWFGdXNpb24gYmFzZSBpcyBsaXN0ZWQ6IGEgYmFzZSB0aGF0IHJlZHVjZXMgdG8KICAgICAgICAvLyBzY2hlbWUraG9zdCBhbG9uZSAoYSBwYXN0ZWQgTUYgVVJMIHdpdGggbm8gY29uZmlnCiAgICAgICAgLy8gc2VnbWVudCDigJQgYSBjb25maWd1cmF0aW9uIHRoYXQgY2Fubm90IGZldGNoIGEKICAgICAgICAvLyBtYW5pZmVzdCkgd291bGQgcHV0IGEgYmFyZSBob3N0IG9uIHRoZSBzZWNyZXQgbGlzdAogICAgICAgIC8vIGFuZCBvdmVyLXJlZGFjdCBzdHJ1Y3R1cmVkIGhvc3Q9IGxpbmVzLCBzbyBhCiAgICAgICAgLy8gcGF0aC1sZXNzIGJhc2UgaXMgc2tpcHBlZCAocmV2aWV3IExlbnMgQiwgMS4yLjEpLgogICAgICAgIGxldCBtZkJhc2U6IFN0cmluZz8gPSBNZWRpYUZ1c2lvbi5iYXNlVVJMLmZsYXRNYXAgeyBiYXNlIGluCiAgICAgICAgICAgIGd1YXJkIGxldCBjb21wcyA9IFVSTENvbXBvbmVudHMoc3RyaW5nOiBiYXNlKSwKICAgICAgICAgICAgICAgICAgIWNvbXBzLnBhdGguaXNFbXB0eSBlbHNlIHsgcmV0dXJuIG5pbCB9CiAgICAgICAgICAgIHJldHVybiBiYXNlCiAgICAgICAgfQogICAgICAgIGxldCByYXc6IFtTdHJpbmc/XSA9IFsKICAgICAgICAgICAgRGVicmlkVG9rZW5zLnJkLAogICAgICAgICAgICBEZWJyaWRUb2tlbnMudG9yYm94LAogICAgICAgICAgICBEZWJyaWRUb2tlbnMucHJlbWl1bWl6ZSwKICAgICAgICAgICAgRGVicmlkU2VjcmV0cy5yZFRva2VuLAogICAgICAgICAgICBEZWJyaWRTZWNyZXRzLnRvcmJveFRva2VuLAogICAgICAgICAgICBEZWJyaWRTZWNyZXRzLnByZW1pdW1pemVUb2tlbiwKICAgICAgICAgICAgQnVuZGxlZFNlY3JldHMucmRUb2tlbiwKICAgICAgICAgICAgQnVuZGxlZFNlY3JldHMudG9yYm94VG9rZW4sCiAgICAgICAgICAgIEJ1bmRsZWRTZWNyZXRzLnByZW1pdW1pemVUb2tlbiwKICAgICAgICAgICAgQnVuZGxlZFNlY3JldHMubWZVUkwsCiAgICAgICAgICAgIFVzZXJEZWZhdWx0cy5zdGFuZGFyZC5zdHJpbmcoZm9yS2V5OiBNZWRpYUZ1c2lvbi51cmxLZXkpLAogICAgICAgICAgICAvLyBUaGUgREVSSVZFRCBiYXNlIGZvcm0gKHNjaGVtZS1ub3JtYWxpc2VkLCBubwogICAgICAgICAgICAvLyAvbWFuaWZlc3QuanNvbiBzdWZmaXgpIOKAlCB0aGUgc2hhcGUgcmVxdWVzdHMgYXJlCiAgICAgICAgICAgIC8vIGFjdHVhbGx5IGJ1aWx0IGZyb20sIGFuZCB0aGVyZWZvcmUgdGhlIHNoYXBlIGFuCiAgICAgICAgICAgIC8vIGVuZ2luZSBlcnJvciBjYXJyaWVzLiBUaGUgcmF3IHZhbHVlcyBhYm92ZSBkbwogICAgICAgICAgICAvLyBub3QgbWF0Y2ggaXQgYXMgc3Vic3RyaW5ncyAoSm9lVFYgbGlzdHMgbWZCYXNlCiAgICAgICAgICAgIC8vIGFsb25nc2lkZSBtZlVSTCBmb3IgZXhhY3RseSB0aGlzIHJlYXNvbikuCiAgICAgICAgICAgIG1mQmFzZSwKICAgICAgICBdCiAgICAgICAgdmFyIHNlZW4gPSBTZXQ8U3RyaW5nPigpCiAgICAgICAgdmFyIG91dDogW1N0cmluZ10gPSBbXQogICAgICAgIGZvciB2YWx1ZSBpbiByYXcgewogICAgICAgICAgICBsZXQgdiA9ICh2YWx1ZSA/PyAiIikKICAgICAgICAgICAgICAgIC50cmltbWluZ0NoYXJhY3RlcnMoaW46IC53aGl0ZXNwYWNlc0FuZE5ld2xpbmVzKQogICAgICAgICAgICBndWFyZCB2LmNvdW50ID49IDgsIHNlZW4uaW5zZXJ0KHYpLmluc2VydGVkIGVsc2UgeyBjb250aW51ZSB9CiAgICAgICAgICAgIG91dC5hcHBlbmQodikKICAgICAgICB9CiAgICAgICAgbGV0IG9yaWdpbmFscyA9IG91dAogICAgICAgIGZvciB2IGluIG9yaWdpbmFscyB7CiAgICAgICAgICAgIGZvciBzY2hlbWUgaW4gWyJodHRwczovLyIsICJodHRwOi8vIiwgInN0cmVtaW86Ly8iXSB7CiAgICAgICAgICAgICAgICBndWFyZCB2Lmxvd2VyY2FzZWQoKS5oYXNQcmVmaXgoc2NoZW1lKSBlbHNlIHsgY29udGludWUgfQogICAgICAgICAgICAgICAgbGV0IHN0cmlwcGVkID0gU3RyaW5nKHYuZHJvcEZpcnN0KHNjaGVtZS5jb3VudCkpCiAgICAgICAgICAgICAgICBpZiBzdHJpcHBlZC5jb3VudCA+PSA4LCBzZWVuLmluc2VydChzdHJpcHBlZCkuaW5zZXJ0ZWQgewogICAgICAgICAgICAgICAgICAgIG91dC5hcHBlbmQoc3RyaXBwZWQpCiAgICAgICAgICAgICAgICB9CiAgICAgICAgICAgICAgICBicmVhawogICAgICAgICAgICB9CiAgICAgICAgfQogICAgICAgIHJldHVybiBvdXQuc29ydGVkIHsgJDAuY291bnQgPiAkMS5jb3VudCB9CiAgICB9CgogICAgLy8gTUFSSzogLSBFeHBvcnQKCiAgICBzdGF0aWMgZnVuYyBleHBvcnRUZXh0KCkgLT4gU3RyaW5nIHsKICAgICAgICBzaGFyZWQuZXhwb3J0KCkKICAgIH0KCiAgICBwcml2YXRlIGZ1bmMgZXhwb3J0KCkgLT4gU3RyaW5nIHsKICAgICAgICAvLyBTZWVkIGZyb20gdGhlIG9uLWRpc2sgdHdpbiAoTC1UMDQpOiB0aGUgZGlzayBmaWxlCiAgICAgICAgLy8gY2FycmllcyBwcmV2aW91cyBzZXNzaW9ucycgdGFpbHMg4oCUIGEgY3Jhc2hlZAogICAgICAgIC8vIHNlc3Npb24ncyBsaW5lcyB1cCB0byB0aGUgY3Jhc2gg4oCUIHdoaWNoIHRoZQogICAgICAgIC8vIHBlci1sYXVuY2ggYnVmZmVyIGFsb25lIGNhbiBuZXZlciBjb250YWluLiBUaGUKICAgICAgICAvLyBidWZmZXIgaXMgdGhlIGZhbGxiYWNrIHdoZW4gdGhlIGZpbGUgaXMgYWJzZW50IG9yCiAgICAgICAgLy8gdW5yZWFkYWJsZS4KICAgICAgICBsZXQgKHNuYXBzaG90LCBleHBvcnRlZEF0KSA9IGxvY2sud2l0aExvY2sgeyAoKSAtPiAoW1N0cmluZ10sIFN0cmluZykgaW4KICAgICAgICAgICAgbGV0IGRpc2sgPSBkaXNrTGluZXNMb2NrZWQoKQogICAgICAgICAgICByZXR1cm4gKGRpc2suaXNFbXB0eSA/IGxpbmVzIDogZGlzaywKICAgICAgICAgICAgICAgICAgICBleHBvcnREYXRlRm9ybWF0dGVyLnN0cmluZyhmcm9tOiBEYXRlKCkpKQogICAgICAgIH0KICAgICAgICBsZXQgaW5mbyA9IEJ1bmRsZS5tYWluLmluZm9EaWN0aW9uYXJ5CiAgICAgICAgbGV0IHZlcnNpb24gPSBpbmZvP1siQ0ZCdW5kbGVTaG9ydFZlcnNpb25TdHJpbmciXSBhcz8gU3RyaW5nID8/ICI/IgogICAgICAgIGxldCBidWlsZCA9IGluZm8/WyJDRkJ1bmRsZVZlcnNpb24iXSBhcz8gU3RyaW5nID8/ICI/IgogICAgICAgIGxldCBoZWFkZXIgPSBbCiAgICAgICAgICAgICJKVFYgZGlhZ25vc3RpYyBsb2ciLAogICAgICAgICAgICAiRXhwb3J0ZWQ6IFwoZXhwb3J0ZWRBdCkiLAogICAgICAgICAgICAiQXBwOiBKVFYgXCh2ZXJzaW9uKSAoXChidWlsZCkpIiwKICAgICAgICAgICAgLy8gdHZPUyBhZGFwdGF0aW9uOiBoZWFkZXIgbmFtZXMgdHZPUzsgdmVyc2lvbiBjb21lcwogICAgICAgICAgICAvLyBmcm9tIFByb2Nlc3NJbmZvLCBub3QgVUlEZXZpY2UuCiAgICAgICAgICAgICJTeXN0ZW06IHR2T1MgXChTZWxmLm9zVmVyc2lvblN0cmluZykgb24gXChTZWxmLmRldmljZU1vZGVsKSIsCiAgICAgICAgICAgICJMaW5lczogXChzbmFwc2hvdC5jb3VudCkgKG9sZGVzdCBmaXJzdCwgdGltZXMgYXJlIGxvY2FsKSIsCiAgICAgICAgICAgICItLS0iLAogICAgICAgIF0KICAgICAgICByZXR1cm4gKGhlYWRlciArIHNuYXBzaG90KS5qb2luZWQoc2VwYXJhdG9yOiAiXG4iKSArICJcbiIKICAgIH0KCiAgICAvLy8gSGFyZHdhcmUgaWRlbnRpZmllciAoZS5nLiAiaVBob25lMTcsMiIpIOKAlCBtb3JlIHVzZWZ1bCBpbgogICAgLy8vIGEgbG9nIHRoYW4gVUlEZXZpY2UncyBtYXJrZXRpbmctZnJlZSAiaVBob25lIi4KICAgIHByaXZhdGUgc3RhdGljIHZhciBkZXZpY2VNb2RlbDogU3RyaW5nIHsKICAgICAgICB2YXIgc3lzID0gdXRzbmFtZSgpCiAgICAgICAgdW5hbWUoJnN5cykKICAgICAgICByZXR1cm4gTWlycm9yKHJlZmxlY3Rpbmc6IHN5cy5tYWNoaW5lKS5jaGlsZHJlbi5yZWR1Y2UoIiIpIHsgYWNjLCBjaGlsZCBpbgogICAgICAgICAgICBndWFyZCBsZXQgYnl0ZSA9IGNoaWxkLnZhbHVlIGFzPyBJbnQ4LCBieXRlICE9IDAgZWxzZSB7IHJldHVybiBhY2MgfQogICAgICAgICAgICByZXR1cm4gYWNjICsgU3RyaW5nKFVuaWNvZGVTY2FsYXIoVUludDgoYml0UGF0dGVybjogYnl0ZSkpKQogICAgICAgIH0KICAgIH0KCiAgICAvLy8gdHZPUyBhZGFwdGF0aW9uOiBmb3JtYXR0ZWQgUHJvY2Vzc0luZm8gT1MgdmVyc2lvbgogICAgLy8vIChlLmcuICIyNy4yLjEiKSwgcmVwbGFjaW5nIFVJRGV2aWNlLmN1cnJlbnQuc3lzdGVtVmVyc2lvbi4KICAgIHByaXZhdGUgc3RhdGljIHZhciBvc1ZlcnNpb25TdHJpbmc6IFN0cmluZyB7CiAgICAgICAgbGV0IHYgPSBQcm9jZXNzSW5mby5wcm9jZXNzSW5mby5vcGVyYXRpbmdTeXN0ZW1WZXJzaW9uCiAgICAgICAgcmV0dXJuICJcKHYubWFqb3JWZXJzaW9uKS5cKHYubWlub3JWZXJzaW9uKS5cKHYucGF0Y2hWZXJzaW9uKSIKICAgIH0KCiAgICAvLyBNQVJLOiAtIFJlZGFjdGlvbiBoZWxwZXIKCiAgICAvLy8gUmVnaXN0ZXJzIGEgaG9zdCB3aG9zZSBVUkwgcGF0aCBjYXJyaWVzIGEgY3JlZGVudGlhbAogICAgLy8vICh2MS4yMi4xNSk6IGB1cmxGb3JMb2coXzopYCB3aWxsIHJldHVybiBubyBwYXRoIHNlZ21lbnRzCiAgICAvLy8gYXQgYWxsIGZvciBpdC4gRW1wdHkgaG9zdHMgYXJlIGlnbm9yZWQ7IHJlZ2lzdGVyaW5nIHRoZQogICAgLy8vIHNhbWUgaG9zdCB0d2ljZSBpcyBhIG5vLW9wLgogICAgc3RhdGljIGZ1bmMgcmVnaXN0ZXJDcmVkZW50aWFsSG9zdChfIGhvc3Q6IFN0cmluZykgewogICAgICAgIGd1YXJkICFob3N0LmlzRW1wdHkgZWxzZSB7IHJldHVybiB9CiAgICAgICAgc2hhcmVkLmxvY2sud2l0aExvY2sgeyBfID0gc2hhcmVkLmNyZWRlbnRpYWxIb3N0cy5pbnNlcnQoaG9zdCkgfQogICAgfQoKICAgIC8vLyBUaGUgT05MWSBzaGFwZSBpbiB3aGljaCBhIFVSTCBtYXkgZW50ZXIgdGhlIGxvZzoKICAgIC8vLyBzY2hlbWU6Ly9ob3N0Wzpwb3J0XS9wYXRoIOKAlCBxdWVyeSBhbmQgZnJhZ21lbnQgc3RyaXBwZWQsCiAgICAvLy8gYW55IGVtYmVkZGVkIGNyZWRlbnRpYWxzIGRyb3BwZWQuIEZvciBhIGhvc3QgcmVnaXN0ZXJlZAogICAgLy8vIHZpYSBgcmVnaXN0ZXJDcmVkZW50aWFsSG9zdChfOilgIHRoZSBwYXRoIGlzIGRyb3BwZWQgdG9vCiAgICAvLy8gKHNjaGVtZTovL2hvc3RbOnBvcnRdL+KApiksIGJlY2F1c2UgdGhhdCBwYXRoIElTIHRoZQogICAgLy8vIGNyZWRlbnRpYWwuIE5vbi1VUkwgdGFyZ2V0cwogICAgLy8vIChlcGlzb2RlIGlkcyBzdWNoIGFzICJqdHZoYXNoOuKApiIgb3IgImp0dnN0cmVhbXM64oCmIikKICAgIC8vLyBjb2xsYXBzZSB0byB0aGVpciBzY2hlbWUtbGlrZSBwcmVmaXggc28gdGhlIHBheWxvYWQg4oCUCiAgICAvLy8gYSBoYXNoLCBhIHNpZ25lZCBpZCDigJQgaXMgbmV2ZXIgd3JpdHRlbiBlaXRoZXIuCiAgICBzdGF0aWMgZnVuYyB1cmxGb3JMb2coXyB1cmxTdHJpbmc6IFN0cmluZykgLT4gU3RyaW5nIHsKICAgICAgICBpZiBsZXQgY29tcHMgPSBVUkxDb21wb25lbnRzKHN0cmluZzogdXJsU3RyaW5nKSwKICAgICAgICAgICBsZXQgc2NoZW1lID0gY29tcHMuc2NoZW1lLCBsZXQgaG9zdCA9IGNvbXBzLmhvc3QsICFob3N0LmlzRW1wdHkgewogICAgICAgICAgICB2YXIgb3V0ID0gIlwoc2NoZW1lKTovL1woaG9zdCkiCiAgICAgICAgICAgIGlmIGxldCBwb3J0ID0gY29tcHMucG9ydCB7IG91dCArPSAiOlwocG9ydCkiIH0KICAgICAgICAgICAgbGV0IGlzQ3JlZGVudGlhbEhvc3QgPSBzaGFyZWQubG9jay53aXRoTG9jayB7IHNoYXJlZC5jcmVkZW50aWFsSG9zdHMuY29udGFpbnMoaG9zdCkgfQogICAgICAgICAgICBpZiBpc0NyZWRlbnRpYWxIb3N0IHsgcmV0dXJuIG91dCArICIv4oCmIiB9CiAgICAgICAgICAgIG91dCArPSBjb21wcy5wYXRoCiAgICAgICAgICAgIHJldHVybiBvdXQKICAgICAgICB9CiAgICAgICAgaWYgbGV0IGNvbG9uID0gdXJsU3RyaW5nLmZpcnN0SW5kZXgob2Y6ICI6IikgewogICAgICAgICAgICByZXR1cm4gU3RyaW5nKHVybFN0cmluZ1suLjxjb2xvbl0pICsgIjrigKYiCiAgICAgICAgfQogICAgICAgIHJldHVybiAi4oCmIgogICAgfQp9Cg==
+import Foundation
+// tvOS adaptation: `import UIKit` dropped — its only use was
+// UIDevice (export header below), replaced with ProcessInfo.
+
+/// In-app diagnostic log (LOG RETRIEVAL LAW, owner order
+/// 2026-11-18): every build ships a way to get its log out, so
+/// faults are fixed from evidence instead of blind hunting.
+/// On tvOS the export is the LAN server in LogExportView
+/// (Settings → "Gửi log chẩn đoán"); this file is the log
+/// store behind it.
+///
+/// Design:
+/// • Ring buffer of the last ~2,000 lines in memory, PLUS a
+///   write-through on-disk twin (L-T04 / FL-342): every line
+///   is appended to `jtv-diag.log` in Application Support at
+///   write time, under the same lock, capped at 1 MB with
+///   rotation keeping the newest ~700 KB — JoeTV's
+///   JoeDiagLog storage shape, ported after the in-memory-
+///   only original lost a crashed session's entire log (the
+///   crash under diagnosis destroyed its own evidence). The
+///   export seeds from the disk file, so a crashed session's
+///   tail is exportable at the next launch; the launch line
+///   marks the session boundary.
+/// • Thread safety: a plain NSLock around every access, the same
+///   pattern ImageCacheManager uses. An actor was rejected: the
+///   call sites are synchronous (UIKit error surfaces, the
+///   non-isolated image cache, timer closures) and forcing an
+///   async hop at each one would scatter Tasks through code
+///   paths that must stay exactly as they are. The class is
+///   therefore `@unchecked Sendable` with ALL mutable state —
+///   buffer and date formatters alike — touched only while the
+///   lock is held.
+/// • REDACTION (hard rule): debrid tokens, the MediaFusion
+///   manifest URL and signed-URL query strings must NEVER reach
+///   this buffer. Call sites log hosts and paths via
+///   `urlForLog(_:)` (scheme + host + path, query and fragment
+///   stripped, credentials dropped) and refer to secrets only
+///   by configured yes/no. There is deliberately no API that
+///   takes a raw URL. As defence in depth — because lines now
+///   also reach DISK — `append` additionally runs a central
+///   scrub over every message (JoeTV's write() discipline,
+///   adapted): any URL run loses its query and fragment, a
+///   scheme-less credential config base is erased whole, and
+///   every credential value in force is erased wherever it
+///   appears. Paths survive the scrub by design:
+///   the route lines diagnosis depends on must not change
+///   shape, and `urlForLog` + `registerCredentialHost` are
+///   what keep credential-carrying paths out in the first
+///   place.
+/// • v1.22.15: hosts registered via `registerCredentialHost(_:)`
+///   carry their credential in the URL PATH (the MediaFusion
+///   manifest), so for those hosts `urlForLog(_:)` drops the
+///   path entirely — scheme + host (+ port) + "/…" only. Every
+///   non-registered host keeps the path exactly as before: the
+///   route lines diagnosis depends on must not change shape.
+final class DiagLog: @unchecked Sendable {
+    static let shared = DiagLog()
+
+    private let lock = NSLock()
+    private var lines: [String] = []
+    private let capacity = 2000
+    /// Hosts whose URL path carries a credential (v1.22.15, see
+    /// the redaction note above). Touched only while `lock` is
+    /// held, like every other piece of mutable state here.
+    private var credentialHosts: Set<String> = []
+
+    /// The on-disk twin's file (Application Support /
+    /// jtv-diag.log; see the design note). Resolved ONCE in
+    /// init and immutable afterwards, so reads need no lock.
+    private let fileURL: URL
+    /// Writes since launch; the rotation check runs every 64
+    /// writes (JoeTV's cadence). Touched only while `lock` is
+    /// held.
+    private var writeCounter = 0
+    /// Bounded disk size (JoeTV's caps): the file is capped
+    /// at 1 MB; on rotation the newest ~700 KB are kept.
+    private static let sizeCap = 1_000_000
+    private static let rotationKeepBytes = 700_000
+
+    /// The central scrub's URL pattern: a whole URL run — no
+    /// whitespace, no quotes (JoeTV's pattern shape).
+    private static let urlRegex = try! NSRegularExpression(
+        pattern: #"(?i)(?:https?|stremio)://[^\s"']+"#)
+
+    /// A scheme-less Torrentio-style config base: a run
+    /// carrying realdebrid= / torbox= / premiumize= segments
+    /// with no scheme in front of it (the shape a bare base or
+    /// an engine error takes). Erased whole — host included —
+    /// because the run's path IS the credential (JoeTV's
+    /// pass 2, ported in the L-T04 fix pass).
+    private static let configBaseRegex = try! NSRegularExpression(
+        pattern: #"(?i)[^\s"']*(?:realdebrid|torbox|premiumize)=[^\s"']*"#)
+
+    /// Formatters are created once and only ever used while
+    /// `lock` is held (see append/export), so they need no
+    /// synchronization of their own.
+    private let timeFormatter: DateFormatter = {
+        let f = DateFormatter()
+        f.locale = Locale(identifier: "en_US_POSIX")
+        f.dateFormat = "HH:mm:ss.SSS"
+        return f
+    }()
+    private let exportDateFormatter: DateFormatter = {
+        let f = DateFormatter()
+        f.locale = Locale(identifier: "en_US_POSIX")
+        f.dateFormat = "yyyy-MM-dd HH:mm:ss ZZZZZ"
+        return f
+    }()
+
+    private init() {
+        fileURL = Self.resolveFileURL()
+    }
+
+    /// The log's directory: Application Support (created if
+    /// needed), falling back to Caches, then the temporary
+    /// directory — JoeDiagLog.swift's directory choice,
+    /// mirrored.
+    private static func resolveFileURL() -> URL {
+        let fm = FileManager.default
+        if let base = try? fm.url(for: .applicationSupportDirectory,
+                                  in: .userDomainMask,
+                                  appropriateFor: nil, create: true) {
+            try? fm.createDirectory(at: base,
+                                    withIntermediateDirectories: true)
+            return base.appendingPathComponent("jtv-diag.log")
+        }
+        if let base = try? fm.url(for: .cachesDirectory,
+                                  in: .userDomainMask,
+                                  appropriateFor: nil, create: true) {
+            try? fm.createDirectory(at: base,
+                                    withIntermediateDirectories: true)
+            return base.appendingPathComponent("jtv-diag.log")
+        }
+        return fm.temporaryDirectory.appendingPathComponent("jtv-diag.log")
+    }
+
+    // MARK: - Logging
+
+    static func log(_ category: String, _ message: String) {
+        shared.append(category: category, message: message)
+    }
+
+    private func append(category: String, message: String) {
+        // Scrub + flatten BEFORE the lock (the scrub touches
+        // only immutable statics, CI-injected constants and
+        // thread-safe UserDefaults reads — see secretValues):
+        // one write is always exactly one line, in the buffer
+        // and on disk alike (JoeTV's write() discipline).
+        let clean = Self.scrubbed(message)
+            .replacingOccurrences(of: "\n", with: " ")
+            .replacingOccurrences(of: "\r", with: " ")
+        lock.withLock {
+            let line = "\(timeFormatter.string(from: Date())) [\(category)] \(clean)"
+            lines.append(line)
+            if lines.count > capacity {
+                lines.removeFirst(lines.count - capacity)
+            }
+            appendToDiskLocked(line)
+            writeCounter += 1
+            if writeCounter % 64 == 0 {
+                rotateIfNeededLocked()
+            }
+        }
+    }
+
+    /// Append one formatted line to the on-disk twin: create
+    /// the file on first use, then write at its end through a
+    /// file handle. Called only while `lock` is held. Failures
+    /// are silent by design — a diagnostic log must never be
+    /// able to break the feature it is observing. One
+    /// deliberate divergence from JoeTV's appendLocked: when
+    /// the handle cannot be opened, JoeTV falls back to
+    /// `data.write(to:)`, which OVERWRITES the whole file with
+    /// the single new line; here the line is dropped instead —
+    /// losing one line beats silently truncating the history
+    /// this file exists to preserve (review Lens A, 1.2.1).
+    private func appendToDiskLocked(_ line: String) {
+        guard let data = (line + "\n").data(using: .utf8) else { return }
+        let fm = FileManager.default
+        if !fm.fileExists(atPath: fileURL.path) {
+            fm.createFile(atPath: fileURL.path, contents: nil)
+        }
+        if let handle = try? FileHandle(forWritingTo: fileURL) {
+            defer { try? handle.close() }
+            _ = try? handle.seekToEnd()
+            try? handle.write(contentsOf: data)
+        }
+    }
+
+    /// Rotation, called under the lock every 64 writes: when
+    /// the file is over the cap, drop from the front up to the
+    /// first newline AFTER (size − keepBytes) — so the kept
+    /// tail starts on a whole line — and prepend a marker
+    /// saying the older lines are gone. The newest content is
+    /// always kept (JoeTV's rotateIfNeededLocked shape; the
+    /// marker uses this logger's own line format).
+    private func rotateIfNeededLocked() {
+        let fm = FileManager.default
+        guard let attrs = try? fm.attributesOfItem(atPath: fileURL.path),
+              let size = attrs[.size] as? Int, size > Self.sizeCap,
+              let data = try? Data(contentsOf: fileURL),
+              data.count > Self.rotationKeepBytes
+        else { return }
+        let threshold = data.count - Self.rotationKeepBytes
+        var start = data.count
+        if let newline = data[threshold...].firstIndex(of: 0x0A) {
+            start = newline + 1
+        }
+        let marker = "\(timeFormatter.string(from: Date())) [diag] log rotated — older lines dropped\n"
+        var rotated = Data(marker.utf8)
+        if start < data.count {
+            rotated.append(data[start...])
+        }
+        try? rotated.write(to: fileURL)
+    }
+
+    /// The on-disk twin's current lines (oldest first), read
+    /// while `lock` is held. Empty when the file is absent or
+    /// unreadable — the export then falls back to the buffer.
+    private func diskLinesLocked() -> [String] {
+        guard let data = try? Data(contentsOf: fileURL),
+              let text = String(data: data, encoding: .utf8) else { return [] }
+        return text.split(separator: "\n", omittingEmptySubsequences: true).map(String.init)
+    }
+
+    /// Central scrub (see the redaction note in the header):
+    /// 1. Every URL run loses its query and fragment — the
+    ///    parts where signed URLs and minted links carry
+    ///    credentials. Scheme, host and path survive untouched
+    ///    (string surgery only, no parse/rebuild, so a line a
+    ///    call site already shaped via `urlForLog` passes
+    ///    through byte-identical).
+    /// 2. A scheme-less config base (a run carrying
+    ///    realdebrid= / torbox= / premiumize= with no scheme)
+    ///    is erased whole (JoeTV's pass 2).
+    /// 3. Value pass: every credential value in force is
+    ///    erased wherever it appears, in any shape — the
+    ///    pass that catches a bare token inside an engine
+    ///    error string (JoeTV's pass 3). The MediaFusion URL
+    ///    is also listed scheme-stripped: an error may carry
+    ///    it as a bare host/path fragment.
+    private static func scrubbed(_ message: String) -> String {
+        var result = message
+        let full = NSRange(location: 0,
+                           length: (result as NSString).length)
+        for match in urlRegex.matches(in: result, range: full).reversed() {
+            guard let range = Range(match.range, in: result) else { continue }
+            let raw = String(result[range])
+            let cut = raw.firstIndex(where: { $0 == "?" || $0 == "#" }) ?? raw.endIndex
+            result.replaceSubrange(range, with: String(raw[..<cut]))
+        }
+        let rest = NSRange(location: 0,
+                           length: (result as NSString).length)
+        for match in configBaseRegex.matches(in: result,
+                                             range: rest).reversed() {
+            guard let range = Range(match.range, in: result) else { continue }
+            result.replaceSubrange(range, with: "[redacted]")
+        }
+        for secret in secretValues() {
+            result = result.replacingOccurrences(of: secret,
+                                                 with: "[redacted]")
+        }
+        return result
+    }
+
+    /// Every credential value in force, longest first so a
+    /// longer value is erased before any shorter value it
+    /// contains. Sources (JoeTV's gather-both discipline): the
+    /// EFFECTIVE token values via `DebridTokens` (a stored
+    /// UserDefaults value wins, the baked `DebridSecrets`
+    /// value is the fallback), the baked `DebridSecrets` and
+    /// `BundledSecrets` values themselves (a baked value can
+    /// ride an engine error string even when a stored value
+    /// has overridden it), and the MediaFusion URL in every
+    /// form in force — stored, bundled, and the derived
+    /// `MediaFusion.baseURL` requests are built from. Values under 8
+    /// characters are skipped — too short to be a credential,
+    /// too likely to be an innocent substring of ordinary
+    /// text (JoeTV's floor).
+    private static func secretValues() -> [String] {
+        // Only the credential-carrying form of the derived
+        // MediaFusion base is listed: a base that reduces to
+        // scheme+host alone (a pasted MF URL with no config
+        // segment — a configuration that cannot fetch a
+        // manifest) would put a bare host on the secret list
+        // and over-redact structured host= lines, so a
+        // path-less base is skipped (review Lens B, 1.2.1).
+        let mfBase: String? = MediaFusion.baseURL.flatMap { base in
+            guard let comps = URLComponents(string: base),
+                  !comps.path.isEmpty else { return nil }
+            return base
+        }
+        let raw: [String?] = [
+            DebridTokens.rd,
+            DebridTokens.torbox,
+            DebridTokens.premiumize,
+            DebridSecrets.rdToken,
+            DebridSecrets.torboxToken,
+            DebridSecrets.premiumizeToken,
+            BundledSecrets.rdToken,
+            BundledSecrets.torboxToken,
+            BundledSecrets.premiumizeToken,
+            BundledSecrets.mfURL,
+            UserDefaults.standard.string(forKey: MediaFusion.urlKey),
+            // The DERIVED base form (scheme-normalised, no
+            // /manifest.json suffix) — the shape requests are
+            // actually built from, and therefore the shape an
+            // engine error carries. The raw values above do
+            // not match it as substrings (JoeTV lists mfBase
+            // alongside mfURL for exactly this reason).
+            mfBase,
+        ]
+        var seen = Set<String>()
+        var out: [String] = []
+        for value in raw {
+            let v = (value ?? "")
+                .trimmingCharacters(in: .whitespacesAndNewlines)
+            guard v.count >= 8, seen.insert(v).inserted else { continue }
+            out.append(v)
+        }
+        let originals = out
+        for v in originals {
+            for scheme in ["https://", "http://", "stremio://"] {
+                guard v.lowercased().hasPrefix(scheme) else { continue }
+                let stripped = String(v.dropFirst(scheme.count))
+                if stripped.count >= 8, seen.insert(stripped).inserted {
+                    out.append(stripped)
+                }
+                break
+            }
+        }
+        return out.sorted { $0.count > $1.count }
+    }
+
+    // MARK: - Export
+
+    static func exportText() -> String {
+        shared.export()
+    }
+
+    private func export() -> String {
+        // Seed from the on-disk twin (L-T04): the disk file
+        // carries previous sessions' tails — a crashed
+        // session's lines up to the crash — which the
+        // per-launch buffer alone can never contain. The
+        // buffer is the fallback when the file is absent or
+        // unreadable.
+        let (snapshot, exportedAt) = lock.withLock { () -> ([String], String) in
+            let disk = diskLinesLocked()
+            return (disk.isEmpty ? lines : disk,
+                    exportDateFormatter.string(from: Date()))
+        }
+        let info = Bundle.main.infoDictionary
+        let version = info?["CFBundleShortVersionString"] as? String ?? "?"
+        let build = info?["CFBundleVersion"] as? String ?? "?"
+        let header = [
+            "JTV diagnostic log",
+            "Exported: \(exportedAt)",
+            "App: JTV \(version) (\(build))",
+            // tvOS adaptation: header names tvOS; version comes
+            // from ProcessInfo, not UIDevice.
+            "System: tvOS \(Self.osVersionString) on \(Self.deviceModel)",
+            "Lines: \(snapshot.count) (oldest first, times are local)",
+            "---",
+        ]
+        return (header + snapshot).joined(separator: "\n") + "\n"
+    }
+
+    /// Hardware identifier (e.g. "iPhone17,2") — more useful in
+    /// a log than UIDevice's marketing-free "iPhone".
+    private static var deviceModel: String {
+        var sys = utsname()
+        uname(&sys)
+        return Mirror(reflecting: sys.machine).children.reduce("") { acc, child in
+            guard let byte = child.value as? Int8, byte != 0 else { return acc }
+            return acc + String(UnicodeScalar(UInt8(bitPattern: byte)))
+        }
+    }
+
+    /// tvOS adaptation: formatted ProcessInfo OS version
+    /// (e.g. "27.2.1"), replacing UIDevice.current.systemVersion.
+    private static var osVersionString: String {
+        let v = ProcessInfo.processInfo.operatingSystemVersion
+        return "\(v.majorVersion).\(v.minorVersion).\(v.patchVersion)"
+    }
+
+    // MARK: - Redaction helper
+
+    /// Registers a host whose URL path carries a credential
+    /// (v1.22.15): `urlForLog(_:)` will return no path segments
+    /// at all for it. Empty hosts are ignored; registering the
+    /// same host twice is a no-op.
+    static func registerCredentialHost(_ host: String) {
+        guard !host.isEmpty else { return }
+        shared.lock.withLock { _ = shared.credentialHosts.insert(host) }
+    }
+
+    /// The ONLY shape in which a URL may enter the log:
+    /// scheme://host[:port]/path — query and fragment stripped,
+    /// any embedded credentials dropped. For a host registered
+    /// via `registerCredentialHost(_:)` the path is dropped too
+    /// (scheme://host[:port]/…), because that path IS the
+    /// credential. Non-URL targets
+    /// (episode ids such as "jtvhash:…" or "jtvstreams:…")
+    /// collapse to their scheme-like prefix so the payload —
+    /// a hash, a signed id — is never written either.
+    static func urlForLog(_ urlString: String) -> String {
+        if let comps = URLComponents(string: urlString),
+           let scheme = comps.scheme, let host = comps.host, !host.isEmpty {
+            var out = "\(scheme)://\(host)"
+            if let port = comps.port { out += ":\(port)" }
+            let isCredentialHost = shared.lock.withLock { shared.credentialHosts.contains(host) }
+            if isCredentialHost { return out + "/…" }
+            out += comps.path
+            return out
+        }
+        if let colon = urlString.firstIndex(of: ":") {
+            return String(urlString[..<colon]) + ":…"
+        }
+        return "…"
+    }
+}

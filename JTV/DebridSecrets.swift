@@ -1,1 +1,13 @@
-Ly8vIEJha2VkLWluIGRlYnJpZCB0b2tlbnMgZm9yIHRoZSBUb3JyZW50IHRhYi4KLy8vCi8vLyBUaGUgY29weSBpbiB0aGUgcmVwbyBpcyBFTVBUWSBvbiBwdXJwb3NlOiB0b2tlbnMgbmV2ZXIgbGl2ZSBpbgovLy8gc291cmNlIGNvbnRyb2wgKGp0di1zb3VyY2UgaXMgcHVibGljLCBhbmQgZXZlbiB0aGUgcHJpdmF0ZSBhcHAKLy8vIHJlcG8gaXMgdGhlIHdyb25nIHBsYWNlIGZvciBhIGNyZWRlbnRpYWwpLiBUaGUgQ0kgYnVpbGQgbWF5Ci8vLyBvdmVyd3JpdGUgdGhpcyBmaWxlIGZyb20gcmVwbyBzZWNyZXRzIGJlZm9yZSBjb21waWxpbmc7IHdoZW4gaXQKLy8vIGRvZXMgbm90LCB0aGUgYXBwIGZhbGxzIGJhY2sgdG8gdGhlIHRva2VucyB0aGUgb3duZXIgdHlwZXMgb25jZQovLy8gaW4gU2V0dGluZ3MgKHN0b3JlZCBpbiBVc2VyRGVmYXVsdHMg4oCUIHNlZSBEZWJyaWRUb2tlbnMpLgplbnVtIERlYnJpZFNlY3JldHMgewogICAgc3RhdGljIGxldCByZFRva2VuID0gIiIKICAgIHN0YXRpYyBsZXQgdG9yYm94VG9rZW4gPSAiIgogICAgc3RhdGljIGxldCBwcmVtaXVtaXplVG9rZW4gPSAiIgp9Cg==
+/// Baked-in debrid tokens for the Torrent tab.
+///
+/// The copy in the repo is EMPTY on purpose: tokens never live in
+/// source control (jtv-source is public, and even the private app
+/// repo is the wrong place for a credential). The CI build may
+/// overwrite this file from repo secrets before compiling; when it
+/// does not, the app falls back to the tokens the owner types once
+/// in Settings (stored in UserDefaults — see DebridTokens).
+enum DebridSecrets {
+    static let rdToken = ""
+    static let torboxToken = ""
+    static let premiumizeToken = ""
+}

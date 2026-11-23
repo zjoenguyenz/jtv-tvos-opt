@@ -1,0 +1,154 @@
+name: JTVTV
+options:
+  bundleIdPrefix: com.luun.nguyen
+  deploymentTarget:
+    tvOS: "27.0"
+settings:
+  base:
+    # Swift 6 language mode for the whole project (owner order
+    # 2026-11-18), same as every other app repo in this workspace;
+    # strict concurrency is part of the Swift 6 language mode.
+    SWIFT_VERSION: "6.0"
+    DEVELOPMENT_TEAM: ""
+packages:
+  # KSPlayer (FFmpeg engine) for the Torrent tab's debrid files
+  # only — AVPlayer has no Matroska demuxer, and debrid downloads
+  # are predominantly MKV. 5.6.2 is the version the Joe TV tvOS
+  # build runs in production: the 5.x line is the Swift 6 release
+  # line (Package.swift at tag 5.6.2 declares swift-tools-version
+  # 6.2; the "KSPlayer" product is a prebuilt xcframework and the
+  # UI layer ships as the separate "KSPlayerUI" product). JTV's
+  # player is hand-built on KSPlayerLayer from the core module,
+  # so only the "KSPlayer" product is linked — plus FFmpegKit
+  # below, which 5.6.2 makes the CONSUMER's job (see there).
+  # The iPhone app stays on KSPlayer 2.3.4 by the owner's
+  # separate ruling; only this tvOS target uses 5.6.2.
+  KSPlayer:
+    url: https://github.com/kingslay/KSPlayer.git
+    exactVersion: "5.6.2"
+  # FFmpegKit — required by KSPlayer 5.6.2 even though JTV never
+  # calls it directly. In 2.3.4 the "KSPlayer" product was a source
+  # target that itself depended on the FFmpegKit product, so the
+  # FFmpeg modules arrived transitively. In 5.6.2 the product is a
+  # bare binaryTarget with NO dependencies, while its
+  # .swiftinterface still imports Libavcodec, Libavformat and
+  # libdovi — so an app linking KSPlayer alone fails its
+  # SwiftDriver step with missing-module errors (joetv-tvos CI
+  # run #1). KSPlayer's own source targets (KSPlayerUI, MPVPlayer)
+  # both depend on this product; linking it here mirrors that
+  # intended graph and also satisfies KSPlayer.xcframework's link
+  # references. 9.0.2 is the floor KSPlayer 5.6.2's own manifest
+  # declares (from: "9.0.2"); pinned exactly, like KSPlayer.
+  FFmpegKit:
+    url: https://github.com/kingslay/FFmpegKit.git
+    exactVersion: "9.0.2"
+  # libwebp for the image pipeline's WebP route (Phase 2) —
+  # tvOS ImageIO has no WebP codec, so WebP-only posters failed
+  # every decode site in Cache.swift. Cache.swift calls
+  # libwebp's C decode API directly (the JoeTV pattern); no
+  # SDWebImage core is pulled in. Pinned exactly, like KSPlayer.
+  libwebp:
+    url: https://github.com/SDWebImage/libwebp-Xcode.git
+    exactVersion: "1.6.0"
+targets:
+  JTVTV:
+    type: application
+    platform: tvOS
+    sources:
+      # Shared core — the same files the iOS app compiles, kept
+      # byte-identical with jtv-ios (see CORE-SYNC.md). Only the
+      # portable / near-portable set is listed for Phase 1.
+      - JTV/Models.swift
+      - JTV/PluginEngine.swift
+      - JTV/PluginManager.swift
+      - JTV/MovieService.swift
+      - JTV/MetadataOverlay.swift
+      - JTV/DiagLog.swift
+      - JTV/Library.swift
+      - JTV/Cache.swift
+      - JTV/DebridSecrets.swift
+      # Written by CI from repo secrets before XcodeGen runs
+      # (base64 injection, Phase 1 plan §3.2); the committed copy
+      # is empty — "nothing configured".
+      - JTV/BundledSecrets.swift
+      - JTV/DebridResolver.swift
+      - JTV/HLSProxy.swift
+      - JTV/LocalHLSServer.swift
+      - JTV/Plugins
+      - JTV/Assets.xcassets
+      # tvOS-only shell (Phase 1): app entry, PIN gate, log
+      # export, settings skeleton, root view.
+      - JTVTV/JTVTVApp.swift
+      - JTVTV/PinGate.swift
+      - JTVTV/LogExportView.swift
+      - JTVTV/TVSettingsView.swift
+      - JTVTV/TVRootView.swift
+      # tvOS-only shell (Phase 2): theme system, shared
+      # components, and the five tab screens.
+      - JTVTV/TVTheme.swift
+      - JTVTV/TVComponents.swift
+      - JTVTV/TVHomeView.swift
+      - JTVTV/TVBrowseView.swift
+      - JTVTV/TVCategoryView.swift
+      - JTVTV/TVSearchView.swift
+      - JTVTV/TVDetailView.swift
+      - JTVTV/TVLibraryView.swift
+      # tvOS-only shell (Phase 3): the player — session owner,
+      # cover view, AV surface, KS surface, subtitle panel.
+      - JTVTV/TVPlayerSession.swift
+      - JTVTV/TVPlayerView.swift
+      # tvOS-only shell (1.3.0): the manga reader (NEXT-B) and
+      # the backdrop-preview host (NEXT-D).
+      - JTVTV/TVMangaReaderView.swift
+      # tvOS-only shell (1.3.3): the manga page planner
+      # (gutter-snapped cuts, L-T27) and the source first-byte
+      # probe (measured source selection, L-T23).
+      - JTVTV/TVMangaPagePlanner.swift
+      - JTVTV/TVSourceProbe.swift
+      # tvOS-only shell (1.3.3, Item 5): the built-in network
+      # probe — the owner's on-TV measurement of the 123av /
+      # njav transport fault (ruling 2026-11-22).
+      - JTVTV/TVNetProbe.swift
+      # tvOS-only shell (1.3.5): the actor filmography screen
+      # (Phase 2, L-T26) and the shared backdrop-preview probe
+      # extracted from TVDetailView for it.
+      - JTVTV/TVActorView.swift
+      - JTVTV/TVPreviewProbe.swift
+      - JTVTV/TVBackdropPreviewHost.swift
+      - JTVTV/TVAVPlayerHost.swift
+      - JTVTV/TVKSPlayerHost.swift
+      - JTVTV/TVSubtitlePanel.swift
+    dependencies:
+      - package: KSPlayer
+      - package: FFmpegKit
+      - package: libwebp
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.luun.nguyen.jtv.tvos
+        INFOPLIST_FILE: Info.plist
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        # BOTH version pairs (settings + info.properties below)
+        # are bumped together on every version change — JoeTV
+        # fault register R-17: a build once shipped green stamped
+        # with the old version because only one pair was bumped.
+        # The delivered IPA's Info.plist is read back before
+        # every delivery.
+        MARKETING_VERSION: "1.3.11"
+        CURRENT_PROJECT_VERSION: "19"
+    info:
+      path: Info.plist
+      properties:
+        CFBundleDisplayName: "Media Service"
+        CFBundleName: "Media Service"
+        CFBundleShortVersionString: "1.3.11"
+        CFBundleVersion: "19"
+        CFBundleIconName: "AppIcon"
+        UILaunchScreen: {}
+        UIBackgroundModes:
+          - audio
+        NSAppTransportSecurity:
+          NSAllowsArbitraryLoads: true
+          NSAllowsArbitraryLoadsForMedia: true
+        UISupportedInterfaceOrientations:
+          - UIInterfaceOrientationLandscapeLeft
+          - UIInterfaceOrientationLandscapeRight
