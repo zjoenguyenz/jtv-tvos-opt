@@ -157,6 +157,13 @@ struct TVMangaReaderView: View {
     /// load completion the moment the count exists. Ordinary
     /// state — no sentinel arithmetic anywhere.
     @State private var landOnLastSegment = false
+    /// A3 (AUDIT.md): bumped by every reset that invalidates the
+    /// recorded plans (viewport-aspect change, chapter switch).
+    /// Planning now runs off the main actor, so a plan computed
+    /// against the pre-reset geometry must not be stored after
+    /// the reset — the store sites compare the epoch captured
+    /// before the hop with the current one.
+    @State private var planEpoch = 0
     /// The chapter-resolve task is stored so onDisappear can
     /// cancel it, and `readerAlive` gates every post-await
     /// publish in resolveChapter — a dismissed reader writes
@@ -277,22 +284,46 @@ struct TVMangaReaderView: View {
         return max(1, h)
     }
 
-    /// Computes and records a decoded strip's page plan and
-    /// its page count (1.3.3, L-T27): the planner decides the
-    /// cuts by the image's data shape — whole for a discrete
-    /// image, gutter-snapped for a tall strip, fixed cuts as
-    /// the degradation floor. Runs at decode time inside the
-    /// load tasks, never in the view body.
-    private func recordPlan(idx: Int, image: UIImage) {
-        guard let cg = image.cgImage else {
-            pagePlans[idx] = [TVMangaPageRect(y: 0, height: 1)]
-            segmentCounts[idx] = 1
-            return
-        }
-        let plan = TVMangaPagePlanner.plan(
-            cgImage: cg, segmentHeight: segmentPixelHeight(for: image))
+    /// Records a strip's page plan and its page count — the
+    /// pair, in one update (the plan/count invariant above).
+    /// A3 (AUDIT.md): this is now ONLY the store, on the main
+    /// actor; the plan is computed off it by `planOffMain`.
+    /// The stored values are exactly what the former
+    /// recordPlan(idx:image:) stored.
+    private func recordPlan(idx: Int, plan: [TVMangaPageRect]) {
         pagePlans[idx] = plan
         segmentCounts[idx] = plan.count
+    }
+
+    /// A3 (AUDIT.md): computes a decoded strip's page plan
+    /// (1.3.3, L-T27: whole for a discrete image, gutter-snapped
+    /// for a tall strip, fixed cuts as the degradation floor)
+    /// OFF the main actor, and — when `predecode` — also forces
+    /// the strip's first decode there, so neither the planner's
+    /// full-height scan nor the lazy decode of a wide strip runs
+    /// on main. The segment height is read on main first, from
+    /// the same viewport state the former main-thread call read.
+    /// A strip without a CGImage plans as one whole page, as
+    /// before. The caller re-checks its guards before storing.
+    private func planOffMain(for image: UIImage, predecode: Bool) async -> TVMangaPlanned {
+        let segmentHeight = segmentPixelHeight(for: image)
+        let input = TVMangaImageBox(image: image)
+        return await Task.detached(priority: .userInitiated) {
+            let source = input.image
+            var ready = source
+            if predecode, let decoded = source.preparingForDisplay(),
+               decoded.size == source.size,
+               decoded.scale == source.scale,
+               decoded.imageOrientation == source.imageOrientation {
+                ready = decoded
+            }
+            guard let cg = ready.cgImage else {
+                return TVMangaPlanned(image: ready, plan: [TVMangaPageRect(y: 0, height: 1)])
+            }
+            return TVMangaPlanned(
+                image: ready,
+                plan: TVMangaPagePlanner.plan(cgImage: cg, segmentHeight: segmentHeight))
+        }.value
     }
 
     /// Known page count of a strip (nil while unmeasured).
@@ -516,6 +547,7 @@ struct TVMangaReaderView: View {
                     pagePlans = [:]
                     pageCache = [:]
                     segmentIndex = 0
+                    planEpoch += 1  // A3: in-flight plans are stale
                     Task { await indexChapterSizes() }
                 }
                 viewportSize = newSize
@@ -889,8 +921,20 @@ struct TVMangaReaderView: View {
                 urlString: images[idx], headers: headers, bucket: 1920)
             guard stillCurrent() else { return }
             if let image {
-                loadedImages[idx] = image
-                recordPlan(idx: idx, image: image)
+                // A3: plan + first decode off main. The bitmap and
+                // its plan are stored together after the hop (the
+                // view never sees the strip without its plan);
+                // a superseded run writes nothing, and a plan
+                // overtaken by a geometry reset is recomputed.
+                var planned: TVMangaPlanned
+                var epoch: Int
+                repeat {
+                    epoch = planEpoch
+                    planned = await planOffMain(for: image, predecode: true)
+                    guard stillCurrent() else { return }
+                } while epoch != planEpoch
+                loadedImages[idx] = planned.image
+                recordPlan(idx: idx, plan: planned.plan)
                 if landOnLastSegment {
                     segmentIndex = (segmentCounts[idx] ?? 1) - 1
                     landOnLastSegment = false
@@ -917,7 +961,14 @@ struct TVMangaReaderView: View {
             }
         } else if loadedImages[idx] != nil {
             if segmentCounts[idx] == nil, let image = loadedImages[idx] {
-                recordPlan(idx: idx, image: image)
+                // A3: same record-if-unmeasured rule, re-checked
+                // after the off-main hop.
+                let epoch = planEpoch
+                let planned = await planOffMain(for: image, predecode: false)
+                guard stillCurrent() else { return }
+                if epoch == planEpoch, segmentCounts[idx] == nil {
+                    recordPlan(idx: idx, plan: planned.plan)
+                }
             }
             if let page = storePage(at: idx, segment: segmentIndex) {
                 lastShownPage = page
@@ -944,9 +995,16 @@ struct TVMangaReaderView: View {
                 urlString: images[next], headers: headers, bucket: 1920)
             guard stillCurrent() else { return }
             if let image {
-                loadedImages[next] = image
-                if segmentCounts[next] == nil {
-                    recordPlan(idx: next, image: image)
+                // A3: the warmed strip is pre-decoded off main
+                // too; its plan is recorded only if still
+                // unmeasured after the hop (as before: only if
+                // unmeasured).
+                let epoch = planEpoch
+                let planned = await planOffMain(for: image, predecode: true)
+                guard stillCurrent() else { return }
+                loadedImages[next] = planned.image
+                if epoch == planEpoch, segmentCounts[next] == nil {
+                    recordPlan(idx: next, plan: planned.plan)
                 }
             }
         }
@@ -972,7 +1030,16 @@ struct TVMangaReaderView: View {
                 continue
             }
             if let image = loadedImages[idx] {
-                recordPlan(idx: idx, image: image)
+                // A3: planned off main; stored only if the strip
+                // is still unmeasured and the geometry unchanged
+                // (a reset restarts this pass).
+                let epoch = planEpoch
+                let planned = await planOffMain(for: image, predecode: false)
+                guard !Task.isCancelled, readerAlive, currentEpisode.id == episodeId
+                else { return }
+                if epoch == planEpoch, segmentCounts[idx] == nil {
+                    recordPlan(idx: idx, plan: planned.plan)
+                }
                 continue
             }
             let image = await ImageCacheManager.shared.loadImage(
@@ -980,7 +1047,15 @@ struct TVMangaReaderView: View {
             guard !Task.isCancelled, readerAlive, currentEpisode.id == episodeId
             else { return }
             if let image {
-                recordPlan(idx: idx, image: image)
+                // A3: count-only pass — no bitmap is retained, so
+                // no pre-decode; the planner runs off main.
+                let epoch = planEpoch
+                let planned = await planOffMain(for: image, predecode: false)
+                guard !Task.isCancelled, readerAlive, currentEpisode.id == episodeId
+                else { return }
+                if epoch == planEpoch, segmentCounts[idx] == nil {
+                    recordPlan(idx: idx, plan: planned.plan)
+                }
             } else {
                 failedImages.insert(idx)
                 pagePlans[idx] = nil
@@ -1030,6 +1105,7 @@ struct TVMangaReaderView: View {
             segmentCounts = [:]
             pagePlans = [:]
             pageCache = [:]
+            planEpoch += 1  // A3: in-flight plans are stale
             lastShownPage = nil
             chapterError = false
             pendingTarget = nil
@@ -1357,4 +1433,22 @@ private final class TVMangaPressView: UIView {
         selectHoldTimer?.invalidate()
         selectHoldTimer = nil
     }
+}
+
+/// A3 (AUDIT.md): carries the strip's UIImage into the detached
+/// planning task. The image is never mutated after decode; the
+/// box exists because UIImage / CGImage Sendable conformance
+/// could not be verified against the tvOS 27 SDK headers in the
+/// session that wrote this, so the hand-off states its own
+/// safety instead of depending on the SDK annotation.
+private struct TVMangaImageBox: @unchecked Sendable {
+    let image: UIImage
+}
+
+/// A3 (AUDIT.md): the detached task's result — the (possibly
+/// pre-decoded) image and its plan — both immutable, handed
+/// back to the main actor once. Same @unchecked rationale.
+private struct TVMangaPlanned: @unchecked Sendable {
+    let image: UIImage
+    let plan: [TVMangaPageRect]
 }
