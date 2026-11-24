@@ -376,10 +376,13 @@ final class ImageCacheManager: @unchecked Sendable {
                     self.cache.setObject(cappedImage, forKey: k as NSString, cost: self.decodedCost(cappedImage))
                     return cappedImage
                 }
-                guard let data = await self.fetchBytes(url: url, headers: headers),
-                      let image = Self.decodeImage(data: data, bucket: rung) else { return nil }
-                try? data.write(to: disk, options: .atomic)
-                let cappedImage = self.capped(image)
+                // A4 (AUDIT.md): fetchBytes' validity gate IS the
+                // decode at this rung, and it hands that bitmap
+                // back with the bytes — no second decode here.
+                guard let fetched = await self.fetchBytes(url: url, headers: headers, rung: rung)
+                else { return nil }
+                try? fetched.data.write(to: disk, options: .atomic)
+                let cappedImage = self.capped(fetched.image)
                 self.cache.setObject(cappedImage, forKey: k as NSString, cost: self.decodedCost(cappedImage))
                 return cappedImage
             }
@@ -396,7 +399,7 @@ final class ImageCacheManager: @unchecked Sendable {
     /// response that does not decode as an image fails,
     /// exactly as ordinary failures (404, dead host, timeout)
     /// always did.
-    private func fetchBytes(url: URL, headers: [String: String]) async -> Data? {
+    private func fetchBytes(url: URL, headers: [String: String], rung: Int) async -> (data: Data, image: UIImage)? {
         // Some hosts (sayhentai.cx's /storage/ covers, measured
         // 2026-11-18) refuse image requests that arrive with no
         // Referer at all — Cloudflare serves its hard block page
@@ -441,14 +444,20 @@ final class ImageCacheManager: @unchecked Sendable {
                     } else if !(200...299).contains(http.statusCode) {
                         lastClass = "permanent"
                         break
-                    } else if Self.decodeImage(data: data, bucket: 240) != nil {
-                        // Validity gate: a successful decode at
-                        // the smallest rung is the proof this
-                        // body is a real image (Phase 2 — this
-                        // replaces the old full-size
-                        // UIImage(data:) test, which WebP bodies
-                        // could never pass on tvOS).
-                        return data
+                    } else if let image = Self.decodeImage(data: data, bucket: rung) {
+                        // Validity gate: a successful decode is
+                        // the proof this body is a real image
+                        // (Phase 2 — this replaced the old
+                        // full-size UIImage(data:) test, which
+                        // WebP bodies could never pass on tvOS).
+                        // A4 (AUDIT.md): the gate decodes at the
+                        // REQUESTED rung (it used to decode at
+                        // 240 and the caller decoded again at
+                        // the rung) and returns that bitmap, so
+                        // each fetched body is decoded once. An
+                        // undecodable body still falls to the
+                        // transient branch below and is retried.
+                        return (data, image)
                     } else {
                         lastClass = "transient"
                     }
