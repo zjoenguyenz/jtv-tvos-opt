@@ -77,7 +77,7 @@ init() {
 ```
 Both `@StateObject`s and their observation stay exactly as they are today.
 
-**Risk.** Low. Same objects and same observation; only the discarded duplicates disappear. Behaviour change: NONE.
+**Risk.** Low. Same objects and same observation; only the discarded duplicates disappear. Behaviour change: NONE except one bounded delta (disclosed by the author in PR 1, ACCEPTED AND RECORDED by the leader 2026-11-23): baseline throwaway `PluginManager` constructions also re-seeded bundled plugin scripts after a Caches purge at the next `PinSession` publish; the fixed code seeds only at live-manager construction. Self-healing in PIN builds (next unlock); in no-PIN builds a script purged while backgrounded waits for the next successful sync (the sync fast path requires `hasScript`). Accepted because the discarded instances' unsynchronised writes were themselves part of the A1 hazard.
 
 **Verify.**
 - **Before/after:** a temporary measurement-build counter or os_signpost in `PluginManager.init`, with a scripted session (launch, switch all 5 tabs, open a detail, play 3 min). Expect the count to drop from N≈tabs+appears+3 to 1.
@@ -408,7 +408,7 @@ Exposure is limited: playlist names are 64-bit content hashes and the bodies are
 
 | PR | Closes | Behaviour change | Sync | Measurement to attach |
 |----|--------|------------------|------|------------------------|
-| 1 | A1 + A2(a): root store box | NONE | shell only | `PluginManager.init` count; main-thread profile during playback |
+| 1 | A1 + A2(a): root store box | NONE except the bounded seeding delta recorded at A1 (leader-accepted 2026-11-23) | shell only | `PluginManager.init` count; main-thread profile during playback |
 | 2 | A3: manga planner off-main | NONE (state ordering argued in PR) | shell only | Hangs on a 30-strip chapter; plan-array parity |
 | 3 | A4: single decode per fetch | NONE (edge noted) | SYNC-BREAKING | decode count; cold rail time |
 | 4 | A5: DiagLog cached secrets + persistent handle + ring | NONE (byte-identical scrub proven) | SYNC-BREAKING | 10k-line benchmark; scrub parity |
@@ -420,3 +420,114 @@ Exposure is limited: playlist names are 64-bit content hashes and the bodies are
 1. The CI trigger (X1).
 2. Whether SYNC-BREAKING PRs are welcome on the copy at all, given that each one implies an iOS port.
 3. GitHub App access for pushes.
+
+
+---
+
+## F. Bundled vs live plugin sync
+
+**Compared:** bundled set `JTV/Plugins/` (12 scripts + `plugins.json`) in the app tree at `aec5cdc`, against the live snapshot `sync-reference/jtv-source/` (jtv-source @ `e89c0454`, 14 entries). `modNN.js` is mapped to a plugin id through each live entry's `scriptUrl`.
+
+**Method:**
+- Three version numbers were compared for each plugin: the bundled `plugins.json` version, the live `plugins.json` version, and the version each script declares in its own `getManifest()` (that last one is what the app actually records).
+- Content: SHA-256 of each script, plus a line diff after normalising CRLF to LF.
+
+*Erratum to §0 scope: the bundle holds 12 plugin scripts plus `plugins.json`, not 13 scripts.*
+
+### F.1 How the app uses the bundled copy (code facts the verdicts depend on)
+
+- **Seeding** (`JTV/PluginManager.swift:169-219`): every bundled plugin whose script file is missing is copied from the app bundle into `Library/Caches/…/plugins` (`:91-97`). A plugin that is installed but whose script was removed gets its recorded version reset to the bundled version (S-3).
+- **The bundled copy runs in four situations:**
+  1. **Every fresh install's first Home load.** After seeding, `installed` is not empty, so Home takes the *silent* branch (`TVHomeView.swift:204-210`). That loads the bundled scripts at once, while the sync runs alongside.
+  2. **Any sync failure.** If `plugins.json` or a script fails to download, the existing copy is kept (`PluginManager.swift:448-460, 640-645`).
+  3. **Every tvOS Caches purge**, which reseeds the bundled script and resets its version. tvOS purges Caches routinely, so this is a recurring path, not a rare one.
+  4. **For a plugin whose version is equal on both sides, permanently.** The sync's fast path (`:568-588`) compares only versions (live `plugins.json` version vs installed). If live is less than or equal to installed and a script file exists, it never downloads. **A same-version content difference therefore never heals.**
+- **What the download path records** (`:590-630`): the version the script *declares itself* (`engine.manifest()`), not the `plugins.json` version. Only name, icon, adult and `scriptUrl` are copied from the `plugins.json` entry. **Other per-entry fields, such as `maxChainParses`, never reach the installed manifest.**
+
+### F.2 Per-plugin verdicts
+
+| Plugin | Bundled (json / js) | Live (json / js) | Live file | Verdict | Content |
+|---|---|---|---|---|---|
+| avdbapi | 1.0.6 / 1.0.6 | 1.0.6 / 1.0.6 | mod03 | **IN SYNC** | byte-identical |
+| javhd | 1.0.7 / 1.0.7 | 1.0.7 / 1.0.7 | mod06 | **IN SYNC** | byte-identical |
+| misskon | 1.0.1 / 1.0.1 | 1.0.1 / 1.0.1 | mod10 | **IN SYNC** | byte-identical |
+| torrenthub | 1.0.7 / 1.0.7 | 1.0.7 / 1.0.7 | mod14 | **IN SYNC** | byte-identical |
+| vlxx | 1.0.7 / 1.0.7 | 1.0.7 / 1.0.7 | mod07 | **IN SYNC** | byte-identical |
+| 123av | 1.0.5 / 1.0.5 | 1.0.8 / 1.0.8 | mod02 | **STALE** | +108/−25 lines; live entry adds `relayBase` |
+| missav | 1.1.4 / 1.1.4 | 1.1.7 / 1.1.7 | mod01 | **STALE** | +298/−95 |
+| njav | 1.0.7 / 1.0.7 | 1.0.8 / 1.0.8 | mod08 | **STALE** | +55/−4 |
+| sextop1 | 2.0.3 / 2.0.3 | 2.0.4 / 2.0.4 | mod04 | **STALE** | +5/−5 (domain `.cash` → `.farm`) |
+| topxx | 1.0.2 / 1.0.2 | 1.0.3 / 1.0.3 | mod05 | **STALE** | +5/−2 |
+| hentaihub | 1.0.2 / 1.0.2 | **1.0.7 / 1.0.5** | mod15 | **STALE** + live json≠js mismatch | +51/−5; live entry adds `maxChainParses: 5` |
+| sayhentai | 3.2.0 / 3.2.0 | **3.2.0 / 3.1.0** | mod09 | **CONTENT-DIFFERS-SAME-VERSION** (bundle is *newer*) | bundle has +242 lines that live lacks |
+| javguru | — | 1.0.0 / 1.0.0 | mod16 | **MISSING IN BUNDLE** | — |
+| javsnap | — | 1.0.0 / 1.0.0 | mod17 | **MISSING IN BUNDLE** | — |
+
+**Leader's preliminary measurement:**
+- **Confirmed:** all versions, the two missing plugins, and the five equal-version plugins being byte-identical.
+- **Refined:**
+  - **sayhentai** is equal-version but **not** in sync, and the live script is the older one.
+  - **hentaihub**'s live "1.0.7" is only the `plugins.json` label; the script declares 1.0.5.
+
+### F.3 User-visible consequence when the bundled copy runs
+
+The plugin change notes below are quoted from the diffed scripts. None of these effects was observed on device.
+
+- **123av (1.0.5 vs 1.0.8): source effectively unusable on the TV.**
+  - 1.0.8 added relay mode because 123av.com does not answer the TV directly (`PluginManager.swift:378-382`). The bundled 1.0.5 has no relay path.
+  - It also misses the 1.0.8 embed-id fix: mixed-case ids such as `8W30XN` get truncated to `8`, so resolving them fails.
+  - Single-actress pages are misclassified as the actress index, and cast taps don't route to the actress's filmography.
+- **missav (1.1.4 vs 1.1.7):**
+  - **No mirror rotation (1.1.5):** if `missav.media` is down, browsing fails instead of rotating to `.live` / `123.com`.
+  - **Class-prefix stripping** handles only `missav_media-`, so pages served by another mirror parse badly.
+  - **Pre-1.1.5 stream-id extraction** misses the stream id hidden inside the page's packed `eval()` script on some titles, so those **titles won't play**.
+  - **Missing:** ranked fallback stream ids (1.1.6) and the 1.1.7 extraction variants.
+- **njav (1.0.7 vs 1.0.8):** actor filmography pages 404, because the bundle adds a trailing slash that actor routes reject. Detail-page cast extraction targets the old `<dt>/<dd>` markup, so the cast comes back empty and cast taps go nowhere.
+- **sextop1 (2.0.3 vs 2.0.4):** the bundle points at `sextop1.cash`, and the source has moved to `.farm`. The fast path's base-healing only runs when a sync reaches the live entry. Offline or after a failed sync, the whole source fails if `.cash` no longer serves.
+- **topxx (1.0.2 vs 1.0.3):** an actor's page shows the entire "latest" catalogue instead of that actor's films, because the old search fallback ignores `?q=`.
+- **hentaihub (1.0.2 vs live script 1.0.5):** missing the 1.0.3–1.0.5 resolve-chain work (resolve-scoped note in 1.0.4, the unsigned-MP4 shortcut on watch-started resolves in 1.0.5). Watch-started resolves fall back to the 1.0.2 chain.
+- **sayhentai (bundle 3.2.0 newer than live 3.1.0):** here the bundle is the *good* copy. It has the mirror gap-fill (`khotruyen.win`) for titles whose chapter lists `.cx` has pruned. Consequences:
+  - Bundle-seeded installs keep 3.2.0 permanently, which is correct by accident.
+  - Any install whose sayhentai script came from live (3.1.0) **never gets the gap-fill**, so chapters are still missing in the middle of affected titles.
+  - It also falls into the re-download loop below.
+- **javguru, javsnap (missing in bundle):**
+  - Fresh install before the first successful sync, or a sync failure: these sources **are absent** from the source list.
+  - After a Caches purge: they stay listed (the manifest lives in `UserDefaults`), but the script is gone and nothing reseeds it. `engine(for:)` returns nil (`PluginManager.swift:375-377`), so the source shows empty or error until the next successful sync.
+
+### F.4 Live-repo defects found by this check (source repo, so out of this copy's scope; reported for the owner)
+
+**F.4.1 Perpetual re-download loop — CONFIRMED by code reading.** It is caused by a live `plugins.json` version that is higher than the version the script declares. That covers hentaihub (1.0.7 vs 1.0.5), and sayhentai on any install sitting at 3.1.0.
+- **The loop:** each sync sees json > installed and downloads the script. It then records the script's own version (still lower), writes the file, invalidates the engine, and sets `changed`, which bumps `syncGeneration` (`PluginManager.swift:590-631`). The bump triggers a Home and Category reload, and the next sync repeats all of it.
+- **Combined with A7** (a silent sync on every Home appearance), that is a 70 KB download, two JS evaluations, an engine rebuild and a Home reload on every return to Home.
+- **Log evidence to look for:** a repeated `[sync] plugin updated id=hentaihub v1.0.5` in an exported log.
+
+**F.4.2 `maxChainParses: 5` for hentaihub is dead on arrival — CONFIRMED by code reading.**
+- It exists only in the live `plugins.json` entry, not in the script's `getManifest()`.
+- The sync records the script's manifest (§F.1), so `MovieService.swift:830` always reads 0, and the parse budget stays at the default 4 hops (the "needs 5" comment at `:826-827` never takes effect).
+- Whether the 1.0.5 shortcut makes the 5th hop unnecessary in practice is unverified.
+
+**F.4.3 Relay URL in the live 123av entry — possible P1 (rule 6, owner to classify).**
+- `relayBase` is `http://192.168.68.x:8797/r/<16-hex token>` (not reproduced here).
+- If the path segment is an access key, then it is credential material that is:
+  - now committed to this copy repo (`sync-reference/jtv-source/plugins.json`);
+  - stored in plain `UserDefaults` (`PluginManager.swift:300`);
+  - **not** in DiagLog's redaction set (`DiagLog.swift:280-333`). `urlForLog` keeps the URL path (`:414`), so relayed URLs would carry the token into exported diagnostic logs.
+- I made no change.
+
+### F.5 Recommended bundle-refresh policy
+
+1. **Refresh at every release round.** Regenerate `JTV/Plugins/` from the live repo at a pinned jtv-source commit:
+   - Rename `modNN.js` to `<id>_plugin.js`, and include **every** live id (today, add javguru and javsnap).
+   - Record the source commit (for example a `"sourceCommit"` field in the bundled `plugins.json`, or a CORE-SYNC line) so the bundle's provenance is auditable.
+   - Decide `relayBase` explicitly: it is home-LAN-specific and possibly a credential (F.4.3), so it should probably not be bundled.
+2. **Gate the release with an automated check that fails the build when any of these are false:**
+   - (a) live `plugins.json` version == live script `getManifest()` version for every entry;
+   - (b) bundled == live by SHA-256 for every bundled id;
+   - (c) every live id is bundled.
+
+   Rules (a) and (b) would each have caught both sayhentai and hentaihub. Such a script fits the copy's CI as a read-only check.
+3. **Never change script content without a version bump.** The sync compares versions only, so an equal-version edit never reaches existing installs.
+4. **Order of fixes (owner decision, source repo):**
+   - **sayhentai:** publish the 3.2.0 script to jtv-source before the next bundle refresh. Otherwise a refresh would downgrade the bundle to 3.1.0 and lose the gap-fill.
+   - **hentaihub:** align its two versions. If `maxChainParses` is meant to apply, put it inside `getManifest()`.
+5. **App-side hardening (proposal only).** Have the sync carry per-entry fields from `plugins.json`, and compare against the version it will actually record. `PluginManager.swift` is a synced file, so this would be SYNC-BREAKING. It would also be a BEHAVIOUR CHANGE, so it needs approval and is not part of any optimisation PR.
