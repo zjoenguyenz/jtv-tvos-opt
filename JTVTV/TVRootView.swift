@@ -27,7 +27,14 @@ struct TVRootView: View {
     @StateObject private var plugins: PluginManager
     @StateObject private var service: MovieService
     @StateObject private var favorites = FavoritesManager()
-    @StateObject private var history = WatchHistoryManager()
+    // A2(a): the root only FORWARDS the history store (into the
+    // environment and into the player's value deps); it never
+    // reads it in `body`. Holding it through a non-publishing
+    // holder keeps its one-instance lifetime without subscribing
+    // the root to its 2 s playback-progress publishes. Every
+    // screen that shows history still observes it itself via
+    // @EnvironmentObject.
+    @StateObject private var historyHolder = TVRootHistoryHolder()
     @StateObject private var presenter = PlaybackPresenter()
 
     @State private var homeStore = TVHomeStore()
@@ -39,11 +46,22 @@ struct TVRootView: View {
     @AppStorage(TVThemeStore.defaultsKey) private var themeRaw = JTVThemeID.ultraBlack.rawValue
     @State private var selection = 0
 
+    // A1: SwiftUI re-runs this init on every parent re-render
+    // (RootContainerView re-renders on each PinSession publish:
+    // every touch(), tab change, and the 60 s playback refresh).
+    // Construction stays inside the StateObject autoclosures,
+    // which SwiftUI evaluates once, when the view is installed;
+    // the per-init box is cheap and its lazy members are touched
+    // only by those closures, so both StateObjects still share
+    // ONE PluginManager. No throwaway PluginManager / MovieService
+    // is built on a re-init any more.
     init() {
-        let plugins = PluginManager()
-        _plugins = StateObject(wrappedValue: plugins)
-        _service = StateObject(wrappedValue: MovieService(manager: plugins))
+        let box = TVRootStoreBox()
+        _plugins = StateObject(wrappedValue: box.plugins)
+        _service = StateObject(wrappedValue: box.service)
     }
+
+    private var history: WatchHistoryManager { historyHolder.history }
 
     private var theme: TVThemeTokens {
         (JTVThemeID(rawValue: themeRaw) ?? .ultraBlack).tokens
@@ -117,4 +135,24 @@ struct TVRootView: View {
             session.touch()
         }
     }
+}
+
+/// A1: deferred construction for TVRootView's two linked
+/// StateObjects. A fresh box is made on every TVRootView.init,
+/// but `plugins` / `service` are only evaluated inside the
+/// StateObject autoclosures (i.e. once, at install), and
+/// `service` reuses the same lazily built `plugins`.
+@MainActor
+private final class TVRootStoreBox {
+    lazy var plugins = PluginManager()
+    lazy var service = MovieService(manager: plugins)
+}
+
+/// A2(a): owns the root's WatchHistoryManager for the root's
+/// lifetime. Deliberately has no @Published state, so its
+/// objectWillChange never fires and the root view is not
+/// re-rendered by history changes.
+@MainActor
+private final class TVRootHistoryHolder: ObservableObject {
+    let history = WatchHistoryManager()
 }
